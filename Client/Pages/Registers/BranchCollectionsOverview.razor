@@ -1,0 +1,325 @@
+﻿@page "/BranchCollectionsOverview"
+@using System.Data
+@using Microsoft.Extensions.Configuration
+@using OrisonDailyReport.Client.Services
+@using OrisonDailyReport.Shared.Entities.Login
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Blazor.DropDowns;
+@using Syncfusion.Blazor.Calendars;
+@using Syncfusion.Blazor.Spinner;
+@using Syncfusion.Blazor.Inputs;
+@using Syncfusion.Blazor.SplitButtons
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Data
+@using OrisonDailyReport.Shared.Entities.BoldReport
+@using OrisonDailyReport.Shared.Entities.Registers
+@using OrisonDailyReport.Shared.Entities.General
+@using System.Dynamic;
+@using Newtonsoft.Json
+@using OrisonDailyReport.Client.Logics.Contract.General
+@using System.Web
+@inject NavigationManager _NavManager
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject OrisonDailyReport.Client.Logics.Contract.Registers.IAccountsMain _accountsmain
+@inject OrisonDailyReport.Client.Logics.Contract.BoldReport.IBoldReportManager _BoldReport
+@inject OrisonDailyReport.Client.Logics.Contract.General.IUserLoginManager _userLoginManager
+@inject OrisonDailyReport.Client.Logics.Contract.General.ICompanyManager _ICompanyManager
+@inject IConfiguration Configuration
+@inject MailService mailService
+@inject IJSRuntime jsRuntime
+@inject HttpClient Http
+@inject ToastService ToastService
+@inject GlobalService _GlobalServ
+@using Microsoft.Extensions.Localization
+@using OrisonDailyReport.Client.Resources
+@inject IStringLocalizer<SfResources> Localizer
+<head>
+    <link href="css/OrisonSyncfusionStyles.css" rel="stylesheet" />
+</head>
+
+<div>
+
+    <div class="box-card-shadow">
+        <div class="row">
+            <div class="col-md-12">
+                <SfButton IconCss="Icon excel" CssClass="e-btn4" @onclick="@ExportExcel"></SfButton>
+                <SfButton IconCss="Icon pdf" CssClass="e-btn4" @onclick="@ExportPdf"></SfButton>
+                <SfTextBox @ref="search" Input="OnInput" Placeholder=@Localizer["Global Search"] Width="220px" ShowClearButton="true" CssClass="e-btn2"></SfTextBox>
+                <SfDatePicker @bind-Value="@SDate" Format="dd/MM/yyyy" title=@Localizer["From Date"] Width="150px" Placeholder=@Localizer["From Date"]></SfDatePicker>
+                <SfDatePicker @bind-Value="@EDate" Format="dd/MM/yyyy" title=@Localizer["To Date"] Width="150px" Placeholder=@Localizer["To Date"]></SfDatePicker>
+                <SfButton IconCss="Icon search" @onclick="@Search_Click" title=@Localizer["Search"] CssClass="e-btn4 "></SfButton>
+                <SfButton IconCss="Icon preprint" CssClass="e-btn4 " @onclick="@DownLoadDocument"></SfButton>
+            </div>
+
+        </div>
+        <div class="col-lg-12 control-section toast-default-section">
+            <SfToast ShowCloseButton="true" ID="toast_type" @ref="ToastObj">
+                <ToastPosition X="@ToastPosition"></ToastPosition>
+            </SfToast>
+        </div>
+    </div>
+    <div>
+        <div class="box-card-shadow" style="min-height:@GridHeight">
+
+                <SfGrid ID="Grid" DataSource="@collection"
+                        GridLines="GridLine.Both"
+                        AllowSorting="true"
+                        AllowFiltering="true"
+                        AllowExcelExport="true"
+                        AllowPdfExport="true"
+                        AllowPaging="true"
+                        Height="@GridHeight"
+                        AllowResizing="true"
+                        RowHeight="24"
+                        Width="100%"
+                        @ref="Grid">
+                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel" ShowFilterBarStatus="true"></GridFilterSettings>
+                    <GridPageSettings PageSize="100"></GridPageSettings>
+                    <GridAggregates>
+                        <GridAggregate>
+                            <GridAggregateColumns>
+                                
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(SchoolCollectionDTO.CounterCollection) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(SchoolCollectionDTO.OnlineCollection) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                            </GridAggregateColumns>
+                        </GridAggregate>
+                    </GridAggregates>
+                    <GridColumns>
+                        <GridColumn Field=@nameof(SchoolCollectionDTO.CompanyName) HeaderText=@Localizer["Branch"] TextAlign="TextAlign.Left" Width="50%"></GridColumn>
+                        <GridColumn Field=@nameof(SchoolCollectionDTO.CounterCollection) HeaderText=@Localizer["Counter Collection"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                        <GridColumn Field=@nameof(SchoolCollectionDTO.OnlineCollection) HeaderText=@Localizer["Online Collection"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                    </GridColumns>
+                    @if (Loading)
+                    {
+                        <svg width="2500" height="2500" viewBox="126.444 2.281 589 589"><image href="gif/loading-waiting.gif" height="590px" width="770px" /></svg>
+                    }
+                </SfGrid>        
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    DateTime SDate = DateTime.Now, EDate = DateTime.Now;
+    string Description = "Default", AccYear = "", Con, cmpnyCode;
+    public bool PopupMail = false;
+    private bool Detailed = false;
+    public bool Isload = false, Loading = false;
+    public string SelectedCustomer { get; set; }
+    public string? Category { get; set; }
+    public string? userName { get; set; }
+    public int? RowIndex { get; set; } = 1003;
+    int StudentCount = 0;
+    decimal cashSum, ChequeSum, TTSum, CardSum, onlineSum;
+    decimal GrandTotal;
+    string StartDate, EndDate;
+    int UserID, AccountID, BranchID;
+    bool AllowOpen = false;
+    SfTextBox search;
+    SfProgressButton progressButton;
+    private string ToastPosition = "Right";
+    SfToast ToastObj;
+    public static string ToastContent;
+    private List<ToastModel> Toast = new List<ToastModel>
+{
+         new ToastModel{ Title = "Success!", Content=ToastContent, CssClass="e-toast-success", Icon="e-success toast-icons" },
+        new ToastModel{ Title = "Error!", Content=ToastContent, CssClass="e-toast-danger", Icon="e-error toast-icons" },
+
+    };
+    public IDictionary<string, object> firstRow = new Dictionary<string, object>();
+    public string[] fields = null;
+
+    public SfGrid<SchoolCollectionDTO> Grid { get; set; }
+    public List<SchoolCollectionDTO> collection { get; set; }
+    string GridHeight = "500px";
+    IEnumerable<string> DropdownData = new List<string>() {
+      "Default"
+    };
+    private ElementReference codeBlock;
+    DtoLoginModel info = new DtoLoginModel();
+    public string? DecimalFormat { get; set; } = "0.00";
+
+    public async Task DownLoadDocument()
+    {
+        try
+        {
+
+            var data = await Grid.GetFilteredRecordsAsync();
+            companyDetails = new List<ExpandoObject>();
+            companyDetails = await _ICompanyManager.GetCompanyDetails(BranchID);
+            DataSource dt = new DataSource
+                {
+                    Parameters = new List<JSReportParameter>
+                {
+                    new JSReportParameter()
+                    {
+                        Name = "DateFrom",
+                        Values = new List<string>(){ SDate.ToString() }
+                    },
+                    new JSReportParameter()
+                    {
+                        Name = "DateTo",
+                        Values = new List<string>(){ EDate.ToString() }
+                    }
+                }
+                };
+            dt.DataSet1 = new List<ExpandoObject>();
+            dt.ReportName = "SchoolCollections";
+            dt.DataSet1 = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(data));
+            dt.DataSet2 = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(companyDetails));
+            if (dt.ReportName != "")
+            {
+                var Result = await _BoldReport.GetReport(dt);
+                var filename = "SchoolCollections_" + SDate.ToString("dd/MM/yyyy") + ".pdf";
+                await jsRuntime.InvokeVoidAsync("jsSaveAsFile", filename, Convert.ToBase64String(Result.ToArray()));
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        AccYear = await sessionStorage.GetItemAsync<string>("AcademicYear");
+        var dimension = await jsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+        GridHeight = (dimension.Height - 180).ToString() + "px";
+        Description = "Default";
+        SDate = DateTime.Now;
+        EDate = DateTime.Now;
+        await GetLoginInfo();
+        if (info != null)
+        {
+            DecimalFormat = _GlobalServ.GlobalCurrencyFormat;
+            if (DecimalFormat == null || DecimalFormat == "")
+            {
+
+                DecimalFormat = "0.00";
+            }
+            userName = info.Username;
+            UserID = info.UserID;
+            BranchID = info.BranchID;
+            Category = info.Category;
+            cmpnyCode = info.CompanyCode;
+        }
+        else
+        {
+
+        }
+    }
+
+
+
+    public async void Search_Click()
+    {
+        try
+        {
+            Loading = true;
+            string startDate = SDate.Month.ToString("00") + "-" + SDate.Day.ToString("00") + "-" + SDate.Year;
+            string endDate = EDate.Month.ToString("00") + "-" + EDate.Day.ToString("00") + "-" + EDate.Year;
+            collection = (await _accountsmain.GetSchoolwiseCollection(AccYear, BranchID, startDate.ToString(), endDate.ToString())).ToList();
+            AllowOpen = false;
+
+            Loading = false;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+        finally
+        {
+            Loading = false;
+
+        }
+
+    }
+
+    public async Task ExportExcel()
+    {
+        ExcelExportProperties ExcelProperties = new ExcelExportProperties();
+        ExcelProperties.FileName = "SchoolCollections.xlsx";
+        await this.Grid.ExportToExcelAsync(ExcelProperties);
+
+    }
+
+    public async Task ExportPdf()
+    {
+        PdfExportProperties pdfProperties = new PdfExportProperties
+            {
+                FileName = "SchoolCollections.pdf",
+                PageSize = PdfPageSize.A1
+            };
+        await this.Grid.ExportToPdfAsync(pdfProperties);
+    }
+
+    public void OnInput(InputEventArgs Args)
+    {
+        if (Args.Value != null)
+        {
+            Grid.Search(Args.Value);
+        }
+        Grid.Refresh();
+    }
+
+    public List<ExpandoObject> companyDetails = new List<ExpandoObject>();
+
+    private async Task GetLoginInfo()
+    {
+        try
+        {
+            string param = await Http.GetStringAsync("API/Encryption/Decrypt?Text=" + HttpUtility.UrlEncode(await sessionStorage.GetItemAsync<string>("token")));
+            if (!string.IsNullOrEmpty(param))
+                info = JsonConvert.DeserializeObject<DtoLoginModel>(param)!;
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await jsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+}
+

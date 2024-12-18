@@ -1,0 +1,104 @@
+﻿@page "/Redirect"
+@layout LoginLayout
+@using System.Globalization
+@using Blazored.SessionStorage
+@using OrisonDailyReport.Client.Pages.Loading
+@using OrisonDailyReport.Shared.Entities.Login
+@using Microsoft.AspNetCore.WebUtilities
+@using System.Web
+@using Newtonsoft.Json
+@using System.Dynamic
+
+@inject IJSRuntime IJS
+@inject HttpClient http
+@inject NavigationManager _NavManager
+@inject ISessionStorageService sessionStorage
+@inject OrisonDailyReport.Client.Services.GeneralServices _generalService
+
+<LoadingScreen></LoadingScreen>
+
+@code {
+    public string? ID, BranchID, Key, Date, DataSource, InitialCatalog, PersistSecurityInfo, UserID, Password;
+    DateTime URLDate;
+    DtoLoginModel? info = new DtoLoginModel();
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (Date != "" || Date != null)
+            {
+                var uri = _NavManager.ToAbsoluteUri(_NavManager.Uri);
+                var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+                if (queryStrings.TryGetValue("Param", out var _Param))
+                {
+                    _Param = _Param.ToString().Replace(" ", "+");
+                    string param = await http.GetStringAsync("API/Encryption/Decrypt?Text=" + _Param.ToString());
+                    string[] paramArr = param.Split(new Char[] { '&' });
+                    if (paramArr.Length > 0)
+                    {
+                        Dictionary<String, String> paramKeyVal = paramArr.Select(x => x.Split('=')).ToDictionary(x => x[0], x => x[1]);
+                        if (paramKeyVal.TryGetValue("ID", out var _ID) && paramKeyVal.TryGetValue("BranchID", out var _BranchID) && paramKeyVal.TryGetValue("Key", out var _Key) && paramKeyVal.TryGetValue("Date", out var _Date))
+                        {
+                            ID = _ID;
+                            BranchID = _BranchID;
+                            Key = _Key;
+                            Date = _Date;
+                            if (ID != null && BranchID != null && !string.IsNullOrEmpty(Key))
+                            {
+                                string _key = await http.GetStringAsync("API/Encryption/Encrypt?Text=" + HttpUtility.UrlEncode(Key));
+
+                                if (!string.IsNullOrEmpty(_key))
+                                {
+                                    await sessionStorage.SetItemAsync("token_key", _key);
+                                    //URLDate = DateTime.Parse(Date ?? "", CultureInfo.InvariantCulture);
+                                    URLDate = DateTime.Parse(Date!, CultureInfo.InvariantCulture);
+                                    DateTime CurrentDate = await _generalService.GetServerDateTime();
+                                    if (CurrentDate < URLDate.AddSeconds(60))
+                                    {
+                                        info!.ID = Convert.ToInt32(ID.ToString());
+                                        info.BranchID = Convert.ToInt32(BranchID.ToString());
+                                        info.Language = await IJS.InvokeAsync<string>("cultureInfo.get");
+                                        await SetLoginInfo();
+                                        _NavManager.NavigateTo("Index");
+                                    }
+                                    else
+                                    {
+                                        await IJS.InvokeVoidAsync("window.history.back");
+                                    }
+                                }
+                                else
+                                {
+                                    await IJS.InvokeVoidAsync("window.history.back");
+                                }
+                            }
+                            else
+                            {
+                                await IJS.InvokeVoidAsync("window.history.back");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await IJS.InvokeVoidAsync("window.history.back");
+            Console.WriteLine(ex);
+        }
+    }
+    private async Task SetLoginInfo()
+    {
+        try
+        {
+            string jsonString = JsonConvert.SerializeObject(info);
+            string param = await http.GetStringAsync("API/Encryption/Encrypt?Text=" + jsonString);
+            if (!string.IsNullOrEmpty(param))
+                await sessionStorage.SetItemAsync("token", param);
+        }
+        catch (Exception ex)
+        {
+            await sessionStorage.ClearAsync();
+            throw ex;
+        }
+    }
+}

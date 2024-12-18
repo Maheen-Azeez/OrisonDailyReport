@@ -1,0 +1,615 @@
+﻿@inherits LayoutComponentBase
+@using OrisonDailyReport.Client.Pages.ErrorHandler
+@using OrisonDailyReport.Client.Services
+@using OrisonDailyReport.Shared.Entities.General
+@using OrisonDailyReport.Shared.Entities.Login
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Notifications
+@using Newtonsoft.Json;
+@using System.Web
+@inject NavigationManager uriHelper
+@inject CacheVersionService VersionServ
+@inject Blazored.SessionStorage.ISessionStorageService localStorage
+@inject OrisonDailyReport.Client.Services.GeneralServices _generalService
+@inject OrisonDailyReport.Client.Logics.Contract.General.ICompanyManager _IcompanyManager
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject IJSRuntime JsRuntime
+@inject HttpClient http
+@inject IJSRuntime JsRuntime
+@inject IConfiguration IConfig
+@inject ToastService ToastService
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject GlobalService _GlobalServ
+@using Microsoft.Extensions.Localization
+@using OrisonDailyReport.Client.Resources
+@inject IStringLocalizer<SfResources> Localizer
+
+<head>
+    <link href="css/MainLayout.css" rel="stylesheet" />
+    <link href="css/OrisonSyncfusionStyles.css" rel="stylesheet" />
+    <style>
+        #wrapper .main-content {
+            min-height: @DeviceHeight;
+            overflow-y: visible;
+            background-color: #f2f2f280;
+        }
+
+        .w3-wrapper {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            position: relative;
+            padding: 11px 7px 15px 7px;
+            display: block;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            height: 54px;
+            width: 38px;
+        }
+
+        .Ar {
+            background-image: url("./images/Arabic.png");
+        }
+
+        .En {
+            background-image: url("./images/English.png");
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            padding-left: 100px;
+            text-align: center;
+        }
+    </style>
+    <style>
+        div.update-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 8px;
+            background-color: #fc9003;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        span.blinkUpdate {
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: #fc9003;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: blink 1s linear infinite;
+        }
+
+        @@keyframes blink {
+            100% {
+                transform: scale(2, 2);
+                opacity: 0;
+            }
+        }
+    </style>
+
+</head>
+<CascadingValue Value="this">
+    <div id="wrapper">
+        @if (btnFullScreen == false)
+        {
+            <!--header-section  declaration -->
+            <div style="border-bottom: solid 1px #C9CCD4;">
+                @*<div class="top-row px-4">
+            <CultureSwitcher />
+            </div>*@
+                <SfToolbar Height="65px" EnableRtl="@Lang">
+                    <ToolbarEvents Clicked="@Toggle"></ToolbarEvents>
+                    <ToolbarItems>
+                        <ToolbarItem PrefixIcon="fa fa-bars" TooltipText="Menu">
+                            <Template>
+                                <div class="e-folder">
+                                    <img src="Images/IcMenu.png" style="width: 25px; height: 25px;" alt="Orison" class="avatar-xxl mb-1">
+                                </div>
+                            </Template>
+                        </ToolbarItem>
+                        @if (Mobile != true)
+                        {
+                            <ToolbarItem Align="@ItemAlign.Left">
+                                <Template>
+                                    <div class="e-folder">
+                                        <img src="Images/BackgroundOrisonLogo.png" style="width: 38px; height: 35px;" alt="Orison" class="avatar-xxl mb-1">
+                                    </div>
+                                </Template>
+                            </ToolbarItem>
+                            <ToolbarItem Align="@ItemAlign.Left">
+                                <Template>
+                                    <div class="e-folder pl-3">
+                                        <div class="row">
+                                            <label style=" color: #4758A8; font-family: inherit; font-size: 14px; font-weight: 500;">@Localizer["Orison Daily Reports"]</label>
+                                        </div>
+                                        <div>
+                                            @if (VerionUpdate)
+                                            {
+                                                <a title="Version update" @onclick="Reload" style="text-decoration:none;cursor:pointer;">
+                                                    <div class="update-indicator">
+                                                        <span class="blinkUpdate"></span>
+                                                    </div>
+                                                    <span style="font-size:10px">V @CacheVersion</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a title="Latest Version" style="text-decoration:none;cursor:pointer;">
+                                                    <span style="font-size:10px">V @CacheVersion</span>
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </Template>
+                            </ToolbarItem>
+                        }
+                        <ToolbarItem Align="@ItemAlign.Center">
+                            <Template>
+                                <div class="e-folder">
+                                    <img src="@imgSchoolLogo" style="width: 200px; height: 58px;" alt="Orison" class="avatar-xxl mb-1">
+                                </div>
+                            </Template>
+                        </ToolbarItem>
+                        <ToolbarItem Align="@ItemAlign.Right">
+                            <Template>
+                                <div>
+                                    <a title="AcademicYear">
+                                        <span style=" vertical-align: super;color: #263871;" @onclick="@(() => ConfirmDlgVisible = true)">
+                                            <font size="2">
+                                                @($"{Localizer["AcademicYear"]} ({academicYear})")
+                                            </font>
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <SfDialog @bind-Visible="@ConfirmDlgVisible" Width="400px" ShowCloseIcon="true">
+                                    <DialogTemplates>
+                                        <Header>
+                                            Change AcademicYear
+                                        </Header>
+                                        <Content>
+                                            <div class="e-row">
+                                                <div style=" width: 315px; margin: 0px auto; height: 65px; padding-top: 10px;">
+                                                    <div style="display: inline-block;">
+                                                        <label class="form-label mb-0 mt-2">@Localizer["Academic Year"]</label>
+                                                    </div>
+                                                    <div style="float: right;">
+
+                                                        <SfDropDownList TValue="string" TItem="DtAcademicYear" @bind-Value="academicYear" PopupHeight="230px" DataSource="@CmbYear">
+                                                            <DropDownListFieldSettings Text="AcademicYear" Value="AcademicYear"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                Do You Want Change AcademicYear ?
+                                            </div>
+                                            <DialogButtons>
+                                                <div style="margin-left: 185px;">
+                                                    <SfButton Content=@Localizer["Yes"] CssClass="e-btn" @onclick="yesClick" />
+                                                    <SfButton Content=@Localizer["No"] CssClass="e-btn" OnClick="@HideDialog" />
+                                                </div>
+
+                                            </DialogButtons>
+                                        </Content>
+                                    </DialogTemplates>
+                                    <DialogPositionData X="right" Y="63" />
+                                </SfDialog>
+
+                            </Template>
+                        </ToolbarItem>
+
+                        <ToolbarItem Align="@ItemAlign.Right">
+                            <Template>
+                                <div>
+                                    <SfButton IconCss="@IconClass" CssClass="e-outline" OnClick="@LanguageChange"></SfButton>
+                                </div>
+                            </Template>
+                        </ToolbarItem>
+                        <ToolbarItem Align="@ItemAlign.Right">
+                            <Template>
+                                <div>
+                                    <a @onclick="@Home_Click" title=@Localizer["Home"]>
+                                        <img src="Images/iconshome.png" style="width:27px;height:27px;" alt="Home" class="avatar-xxl mb-1">
+                                    </a>
+                                </div>
+                            </Template>
+                        </ToolbarItem>
+
+                        <ToolbarItem Align="@ItemAlign.Right">
+                            <Template>
+                                <div>
+                                    <div class="dropdown">
+                                        <a class="nav-link d-none d-sm-inline-block" data-bs-toggle="dropdown">
+                                            <span style=" vertical-align: super; color: #404E67;"> @UserName</span>
+                                        </a>
+                                        <div class="dropdown-content" style="text-align:left;">
+                                            <a class="dropdown-item"><i class="oi oi-person"></i>@Localizer["Profile"]</a>
+                                            <a class="dropdown-item" @onclick="LogOutClick"><i class="oi oi-account-logout"></i>@Localizer["Log out"]</a>
+                                            <a class="dropdown-item" @onclick="Reload"><i class="oi oi-reload"></i> @Localizer["Reload"]</a>
+                                            @if (VerionUpdate)
+                                            {
+                                                <a class="dropdown-item" @onclick="Reload">
+                                                    <div class="update-indicator">
+                                                        <span class="blinkUpdate"></span>
+                                                    </div>
+                                                    <span>@Localizer["Update"]</span>
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </Template>
+                        </ToolbarItem>
+                        <ToolbarItem CssClass="e-custom" Align="@ItemAlign.Right">
+                            <Template>
+                                <div class="image-container">
+                                    @*<img height="20" class="img-round" src="img/avatars/avatar.jpg" alt="Orison Admin" />*@
+                                    <img height="20" class="img-round" src="Images/user.png" alt="Orison Admin" />
+                                </div>
+                            </Template>
+                        </ToolbarItem>
+                    </ToolbarItems>
+                </SfToolbar>
+            </div>
+            <!-- end of header-section -->
+            <!-- sidebar element declaration -->
+            <SfSidebar Animate="false" EnableGestures="false" EnablePersistence="true" HtmlAttributes="@HtmlAttribute" Width="260px" Position="@Position" EnableRtl="@Lang" Target=".main-content" @ref="Sidebar" MediaQuery="(min-width:600px)" @bind-IsOpen="SidebarToggle">
+                <ChildContent>
+                    <div class="main-menu">
+                        <div class="pt-3" style="overflow-x:hidden;">
+                            <SfTreeView EnablePersistence="@SfTreeView" CssClass="main-treeview" @ref="TreeView" ExpandOn="@Expand" TValue="TreeData" EnableRtl="@Lang">
+                                <TreeViewEvents TValue="TreeData" NodeClicked="OnSelect"></TreeViewEvents>
+                                <TreeViewFieldsSettings Id="nodeId" Text="nodeText" IconCss="iconCss" DataSource="treedata" HasChildren="hasChild" ParentID="pid">
+                                </TreeViewFieldsSettings>
+                            </SfTreeView>
+                        </div>
+                    </div>
+                </ChildContent>
+            </SfSidebar>
+
+        }
+        <ToastComponent/>
+
+        <SfFab title="@titleFullScreeen" Position="FabPosition.BottomLeft" @onclick="FullScreenClick" CssClass="e-btn" IconCss="fa fa-arrows-alt"></SfFab>
+        <!-- end of sidebar element -->
+        <!-- main-content declaration -->
+        <div class="main-content" id="main-text">
+            <div class="sidebar-content">
+                <div style="height:@DeviceHeight;overflow-y:auto;overflow-x:hidden;">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </div>
+</CascadingValue>
+
+@code {
+    public bool SfTreeView = false;
+    SfTreeView<TreeData> TreeView;
+    SfSidebar Sidebar;
+    public string? UserName { get; set; }
+    public string? Category { get; set; }
+    public string? HomeUrl { get; set; }
+    public string? LogoutUrl { get; set; }
+    public string? DeviceHeight { get; set; }
+    public string? CompanyCode { get; set; }
+    public string? imgSchoolLogo { get; set; }
+    public string? academicYear = "";
+    public string? CompanyLogo { get; set; } = "Images/OrisonLogo.png";
+    public string? titleFullScreeen { get; set; } = "FullScreen";
+    public string? ToastPosition { get; set; } = "Right";
+
+    public bool btnFullScreen { get; set; } = false;
+    public bool SidebarToggle { get; set; } = false;
+    public bool Mobile { get; set; }
+    public bool login { get; set; }
+    private bool VerionUpdate { get; set; } = false;
+    private string? CacheVersion { get; set; }
+    
+    public int? AccountID { get; set; }
+    public int? UserID { get; set; }
+    public int BranchID { get; set; }
+
+    public decimal? MobileWidth { get; set; }
+
+    public ExpandAction Expand = ExpandAction.Click;
+    public SidebarPosition Position { get; set; } = SidebarPosition.Left;
+    Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-treeview" } };
+    public List<DtAcademicYear> CmbYear = new List<DtAcademicYear>();
+    DtAcademicYear objAccYear = new DtAcademicYear();
+    DtoLoginModel? info = new DtoLoginModel();
+
+
+    public void Toggle(ClickEventArgs args)
+    {
+        if (args.Item.TooltipText == "Menu")
+        {
+            SidebarToggle = !SidebarToggle;
+        }
+    }
+    public void LogOutClick()
+    {
+        sessionStorage.ClearAsync();
+        uriHelper.NavigateTo(LogoutUrl);
+    }
+    public void Home_Click()
+    {
+        sessionStorage.ClearAsync();
+        uriHelper.NavigateTo(HomeUrl);
+    }
+    public class TreeData
+    {
+        public string nodeId { get; set; }
+        public string nodeText { get; set; }
+        public string iconCss { get; set; }
+        public bool hasChild { get; set; }
+        public string pid { get; set; }
+    }
+    private List<TreeData> treedata = new List<TreeData>();
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            base.OnInitialized();
+            await GetLoginInfo();
+            if (info != null)
+            {
+                await VersionChecker();
+                UserName = info.Username;
+                UserID = info.UserID;
+                BranchID = info.BranchID;
+                Category = info.Category;
+                //Device Settings
+                var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+                DeviceHeight = dimension.Height - 80 + "px";
+                MobileWidth = dimension.Width;
+                await sessionStorage.SetItemAsync("MobileWidth", MobileWidth);
+                if (MobileWidth < 600)
+                    Mobile = true;
+                else
+                    Mobile = false;
+                //Device Settings
+                //Localization Settings
+                string Language = info.Language!;
+                if (Language == null || Language == "en-US")
+                {
+                    await JsRuntime.InvokeVoidAsync("addCss", "LTR");
+                    Position = SidebarPosition.Left;
+                    Lang = false;
+                }
+                else
+                {
+                    await JsRuntime.InvokeVoidAsync("addCss", "RTL");
+                    Position = SidebarPosition.Right;
+                    Lang = true;
+                }
+                //Localization Settings
+                HomeUrl = await _generalService.GetURL("Home");
+                LogoutUrl = await _generalService.GetURL("LogOut") ?? "";
+                academicYear = await _generalService.GetCurrentAcademicYear(BranchID);
+                await SessionStorage.SetItemAsync("AcademicYear", academicYear);
+                CmbYear = (await _generalService.GetAcademicYear(BranchID))!.ToList();
+                await _GlobalServ.GetCurrencyMaster(BranchID);
+
+
+
+                string Logo = await _IcompanyManager.getLogo(BranchID);
+                object LogoUrl = await _IcompanyManager.getLogoUrl();
+                imgSchoolLogo = LogoUrl.ToString() + "LogoWithName/" + Logo;
+
+
+                treedata.Add(new TreeData { nodeId = "01", nodeText = @Localizer["Home"], iconCss = "fa fa-home" });
+                treedata.Add(new TreeData { nodeId = "02", nodeText = @Localizer["Daily Collection Summary"], iconCss = "fa fa-file-text-o" });
+                treedata.Add(new TreeData { nodeId = "03", nodeText = @Localizer["Daily Collection Details"], iconCss = "fa fa-list-alt" });
+                treedata.Add(new TreeData { nodeId = "04", nodeText = @Localizer["User-wise Collection Summary"], iconCss = "fa fa-users" });
+                treedata.Add(new TreeData { nodeId = "05", nodeText = @Localizer["Online Collection Details"], iconCss = "fa fa-files-o" });
+                treedata.Add(new TreeData { nodeId = "06", nodeText = @Localizer["Fee-wise Collection"], iconCss = "fa fa-files-o" });
+                treedata.Add(new TreeData { nodeId = "07", nodeText = @Localizer["Item Stock Sale"], iconCss = "fa fa-list-alt" });
+                treedata.Add(new TreeData { nodeId = "08", nodeText = @Localizer["Branch Collections Overview"], iconCss = "fa fa-university" });
+                SfTreeView = true;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+    }
+    private bool Lang;
+    private string IconClass => Lang ? "Icon En" : "Icon Ar";
+    private async Task LanguageChange()
+    {
+        string Language = info!.Language!;
+        if (Language == "en-US")
+        {
+            var js = (IJSInProcessRuntime)JsRuntime;
+            js.InvokeVoid("cultureInfo.set", "ar-AE");
+
+            info.Language = "ar-AE";
+            await SetLoginInfo();
+            Lang = true;
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        }
+        else
+        {
+            var js = (IJSInProcessRuntime)JsRuntime;
+            js.InvokeVoid("cultureInfo.set", "en-US");
+
+            info.Language = "en-US";
+            await SetLoginInfo();
+            Lang = false;
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+    private async Task GetLoginInfo()
+    {
+        try
+        {
+            var token = await SessionStorage.GetItemAsync<string>("token");
+            string param = await http.GetStringAsync("API/Encryption/Decrypt?Text=" + HttpUtility.UrlEncode(token));
+            if (!string.IsNullOrEmpty(param))
+                info = JsonConvert.DeserializeObject<DtoLoginModel>(param);
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await JsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+    private async Task SetLoginInfo()
+    {
+        try
+        {
+            string jsonString = JsonConvert.SerializeObject(info);
+            string param = await http.GetStringAsync("API/Encryption/Encrypt?Text=" + jsonString);
+            if (!string.IsNullOrEmpty(param))
+                await SessionStorage.SetItemAsync("token", param);
+        }
+        catch (Exception ex)
+        {
+            await SessionStorage.ClearAsync();
+            throw ex;
+        }
+    }
+
+    public async Task OnSelect(NodeClickEventArgs args)
+    {
+        if (args.NodeData.Text == @Localizer["Home"])
+        {
+            uriHelper.NavigateTo("Home");
+        }
+        if (args.NodeData.Text == @Localizer["Daily Collection Summary"])
+        {
+            uriHelper.NavigateTo("OneDayCollectionSummary");
+        }
+        else if (args.NodeData.Text == @Localizer["Daily Collection Details"])
+        {
+            uriHelper.NavigateTo("OneDayCollectionDetails");
+        }
+        else if (args.NodeData.Text == @Localizer["User-wise Collection Summary"])
+        {
+            uriHelper.NavigateTo("UserwiseCollectionSummary");
+        }
+        else if (args.NodeData.Text == @Localizer["Online Collection Details"])
+        {
+            uriHelper.NavigateTo("OnlineCollection");
+        }
+        else if (args.NodeData.Text == @Localizer["Fee-wise Collection"])
+        {
+            uriHelper.NavigateTo("FeewiseCollection");
+        }
+        else if (args.NodeData.Text == @Localizer["Item Stock Sale"])
+        {
+            uriHelper.NavigateTo("ItemStockSale");
+        } 
+        else if (args.NodeData.Text == @Localizer["Branch Collections Overview"])
+        {
+            uriHelper.NavigateTo("BranchCollectionsOverview");
+        }
+        else
+        {
+
+        }
+        StateHasChanged();
+    }
+
+    public async Task yesClick()
+    {
+
+        this.ConfirmDlgVisible = false;
+        //await sessionStorage.SetItemAsync("AcademicYear", CmbAccYear);
+        await sessionStorage.GetItemAsync<string>("AcademicYear");
+        await LocalStorageGet();
+        uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private bool ConfirmDlgVisible { get; set; } = false;
+    private void ConfirmBtn()
+    {
+        this.ConfirmDlgVisible = true;
+    }
+    private void HideDialog(Object e)
+    {
+        this.ConfirmDlgVisible = false;
+    }
+    protected async Task LocalStorageGet()
+    {
+        CompanyCode = await sessionStorage.GetItemAsync<string>("Company");
+        BranchID = await sessionStorage.GetItemAsync<int>("BranchID");
+        await sessionStorage.GetItemAsync<string>("AcademicYear");
+        await sessionStorage.GetItemAsync<int>("UserID");
+
+    }
+    public async Task FullScreenClick()
+    {
+        btnFullScreen = !btnFullScreen;
+        var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+        if (btnFullScreen)
+        {
+            DeviceHeight = dimension.Height + "px";
+            MobileWidth = dimension.Width;
+            titleFullScreeen = "Close FullScreen";
+        }
+        else
+        {
+            DeviceHeight = dimension.Height - 80 + "px";
+            MobileWidth = dimension.Width;
+            titleFullScreeen = "FullScreen";
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+    private async Task Reload()
+    {
+        await JsRuntime.InvokeVoidAsync("clearCache");
+        uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        await VersionChecker();
+    }
+    public async Task VersionChecker()
+    {
+        try
+        {
+            CacheVersion = IConfig.GetValue<string>("ClientVersion:VersionNo");
+            string serverversion = await VersionServ.GetCacheVersion();
+            if (CacheVersion != serverversion)
+            {
+                VerionUpdate = true;
+            }
+            else
+            {
+                VerionUpdate = false;
+                CacheVersion = serverversion;
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

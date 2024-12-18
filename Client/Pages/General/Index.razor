@@ -1,0 +1,87 @@
+﻿@page "/Index"
+@layout LoginLayout
+@using Newtonsoft.Json
+@using System.Web
+@using OrisonDailyReport.Client.Pages.Loading
+@using OrisonDailyReport.Shared.Entities.Login
+@inject OrisonDailyReport.Client.Logics.Contract.General.IUserLoginManager _IUserLoginManager
+@inject OrisonDailyReport.Client.Logics.Contract.General.ICompanyManager _ICompanyManager
+
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject OrisonDailyReport.Client.Services.GeneralServices _generalService
+@inject NavigationManager _NavManager
+@inject HttpClient http
+@inject IJSRuntime JsRuntime
+
+<LoadingScreen></LoadingScreen>
+
+@code {
+    string? HomeUrl;
+    IEnumerable<DtoLoginModel> info = new List<DtoLoginModel>();
+    DtoLoginModel infoRedirect = new DtoLoginModel();
+    protected override async Task OnInitializedAsync()
+    {        
+        try
+        {
+            await GetLoginInfo();
+            if (infoRedirect.ID != 0 && infoRedirect.BranchID != 0)
+            {
+                info = (await _IUserLoginManager.GetUserData(infoRedirect.ID, infoRedirect.BranchID))!.ToList();
+                await sessionStorage.RemoveItemAsync("token");
+                info!.First().CompanyCode = await _ICompanyManager.GetCompanyCode(Convert.ToInt32(infoRedirect.BranchID));
+                info.First().Language = await JsRuntime.InvokeAsync<string>("cultureInfo.get");
+                info.First().BranchID = infoRedirect.BranchID;
+                await SetLoginInfo();
+                HomeUrl = await _generalService.GetURL("Home")??"";
+                if (info != null)
+                {
+                    if (info.FirstOrDefault()?.ID != 0)
+                    {
+                        _NavManager.NavigateTo("Home");
+                    }
+                    else
+                        _NavManager.NavigateTo(HomeUrl);
+                }
+                else
+                    _NavManager.NavigateTo(HomeUrl);
+            }
+            else
+            {
+                HomeUrl = await _generalService.GetURL("Home")??"";
+                _NavManager.NavigateTo(HomeUrl??"");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+    private async Task GetLoginInfo()
+    {
+        try
+        {
+            string param = await http.GetStringAsync("API/Encryption/Decrypt?Text=" + HttpUtility.UrlEncode(await sessionStorage.GetItemAsync<string>("token")));
+            if (!string.IsNullOrEmpty(param))
+                infoRedirect = JsonConvert.DeserializeObject<DtoLoginModel>(param)!;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            await JsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+    private async Task SetLoginInfo()
+    {
+        try
+        {
+            string jsonString = JsonConvert.SerializeObject(info.FirstOrDefault());
+            string param = await http.GetStringAsync("API/Encryption/Encrypt?Text=" + jsonString);
+            if (!string.IsNullOrEmpty(param))
+                await sessionStorage.SetItemAsync("token", param);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\OrisonDailyReport.Client.props" />
+</Project>

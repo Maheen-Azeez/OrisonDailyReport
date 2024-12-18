@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>OrisonDailyReports</title>
+    <base href="/" />
+    <link rel="icon" type="image/png" href="Images/BackgroundOrisonLogo.png" />
+    <link rel="stylesheet" href="css/blazing-berry/bootstrap.css" />
+    <link href="css/card.css" rel="stylesheet" />
+    <link href="css/Style.css" rel="stylesheet" />
+    <link href="css/Loader.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.syncfusion.com/blazor/24.2.3/styles/bootstrap5.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="OrisonDailyReport.Client.styles.css" rel="stylesheet" />
+    <link href="_content/Syncfusion.Blazor.Themes/bootstrap5.css" rel="stylesheet" />
+    <script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <!--<div id="app">Loading...</div>-->
+    <div id="app">
+        <div class="loader"></div>
+        <svg width="2500" height="2500" viewBox="126.444 2.281 589 589"><image href="images/BackgroundOrisonLogo.png" height="590px" width="770px" /></svg>
+    </div>
+
+    <div id="components-reconnect-modal" class="my-reconnect-modal components-reconnect-hide">
+        <div class="show">
+            <div class="reonnectCardParent">
+                <div class="reonnectCard">
+                    <div class="form-group" style="text-align: Center">
+                        <img src="gif/IconWarning.gif" width="100" height="100" />
+                    </div>
+                    <div class="form-group">
+                        <p style="color:#5E4137">Attempting to connect to server</p>
+                    </div>
+                    <div class="form-group pt-1">
+                        <a href="javascript:void(0)" onclick="forcePageReload()" style="cursor:pointer;" class="reload" title="Reload"><img src="Images/Reload.png" width="40" height="40" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="failed">
+            <div class="reonnectCardParent">
+                <div class="reonnectCard">
+                    <div class="form-group" style="text-align: Center">
+                        <img src="gif/IconWarning.gif" width="100" height="100" />
+                    </div>
+                    <div class="form-group">
+                        <p style="color:#5E4137">Failed to connect</p>
+                    </div>
+                    <div class="form-group pt-1">
+                        <a href="javascript:void(0)" onclick="forcePageReload()" style="cursor:pointer;" class="reload" title="Reload"><img src="Images/Reload.png" width="40" height="40" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rejected">
+            <div class="reonnectCardParent">
+                <div class="reonnectCard">
+                    <div class="form-group" style="text-align: Center">
+                        <img src="gif/IconWarning.gif" width="100" height="100" />
+                    </div>
+                    <div class="form-group">
+                        <p style="color:#5E4137">Connection refused</p>
+                    </div>
+                    <div class="form-group pt-1">
+                        <a href="javascript:void(0)" onclick="forcePageReload()" style="cursor:pointer;" class="reload" title="Reload"><img src="Images/Reload.png" width="40" height="40" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--<div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>-->
+    <script src="_content/BlazorStrap/blazorStrap.js"></script>
+    <script src="_content/BlazorInputFile/inputfile.js"></script>
+
+    <script src="_framework/blazor.webassembly.js" defer></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="https://cdn.syncfusion.com/blazor/23.1.36/syncfusion-blazor.min.js" type="text/javascript"></script>
+    <script>
+        if (!window.sfBlazor) { // the Syncfusion Blazor object is not present
+            var fallbackScript = document.createElement("script");
+            fallbackScript.setAttribute("src", "_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js"); // path to static assets from the Syncfusion package
+            document.getElementsByTagName("head")[0].appendChild(fallbackScript);
+        }
+    </script>
+    <script>
+        window.clearCache = function () {
+            if ('caches' in window) {
+                caches.keys().then(function (keys) {
+                    keys.forEach(function (key) {
+                        caches.delete(key);
+                    });
+                });
+            }
+            if (window.localStorage) {
+                localStorage.clear();
+                console.log('Local storage cleared');
+            }
+        };
+    </script>
+    <!--Reload-->
+    <script>
+        window.forcePageReload = function () {
+            location.reload();
+        }
+    </script>
+    <!--Reload-->
+    <!--Screen Resolution-->
+    <script>
+        window.getWindowDimensions = function () {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        };
+    </script>
+    <!--Screen Resolution-->
+    <!--Culture Info Handler-->
+    <script>
+        window.cultureInfo = {
+            get: () => window.localStorage['BlazorCulture'],
+            set: (value) => window.localStorage['BlazorCulture'] = value
+        };
+    </script>
+    <script>
+        window.addCss = function (Filename) {
+            if (Filename == "LTR") {
+                var head = document.head;
+                var link = document.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = "css/LTR.css";
+                head.appendChild(link);
+            }
+            else {
+                var head = document.head;
+                var link = document.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = "css/RTL.css";
+                head.appendChild(link);
+            }
+        }
+    </script>
+    <!--Culture Info Handler-->
+    <!--Bold Report-->
+    <script src="js/boldreports-interop.js"></script>
+    <!--Bold Report-->
+    <!--Keyboad event-->
+    <script src="js/gridCustomizations.js"></script>
+    <!--Keyboard event-->
+    <!--Emirates ID-->
+    <script>
+        window.myInterop = {
+            GetEIDDetails: function () {
+                $(function () {
+                    $('.btn-readCard').click(function (e) {
+                        e.preventDefault();
+                        $("#imgPhoto").attr('src', $("#imgPhoto").attr('data-src'));
+                        $('.form-control').val("");
+                        $('#txt_EIDNumber').val('Scanning card...');
+                        $('.eid-wrapper').addClass('loading');
+                        readeid();
+
+
+                    });
+
+                    $('.simulateEidResponse').click(function () {
+                        var response = $(this).html();
+                        try {
+                            //console.log(msg.response);
+                            if (response == "NO DATA") {
+                                throw "Could not read card.";
+                            }
+                            var json = $.parseJSON(response);
+                            //console.log(json);
+                            $('.eid-wrapper').removeClass('loading');
+                            if (json.Error != "") {
+                                alert(json.Error);
+                            } else {
+                                $("#txt_EIDNumber").val(json.EIDNumber);
+                                $("#txt_Name").val(json.Name);
+                                $("#txt_NameAr").val(json.NameAr);
+                                $("#txt_Phone").val(json.Phone);
+                                $("#txt_Mobile").val(json.Mobile);
+                                $("#txt_Email").val(json.Email);
+                                $("#txt_Sex").val(json.Sex);
+                                $("#txt_DOB").val(json.DOB);
+                                $("#txt_ResidencyIssue").val(json.ResidencyIssue);
+                                $("#txt_ResidencyExpiry").val(json.ResidencyExpiry);
+                                $("#txt_NationalityID").val(json.NationalityID);
+                                $("#txt_Nationality").val(json.Nationality);
+                                $("#txt_NationalityArabic").val(json.NationalityArabic);
+                                $("#txt_PassportNumber").val(json.PassportNumber);
+                                $("#txt_ResidencyNumber").val(json.ResidencyNumber);
+                                $("#txt_cardVersion").val(json.cardVersion);
+                                $("#imgPhoto").attr('src', 'data:image/png;base64,' + json.Photo)
+                            }
+                            $("#txt_EIDNumber").val(json.EIDNumber);
+
+                            //$('#btnFetchCards').trigger('click');
+
+                        }
+                        catch (e) {
+                            alert(e);
+                            $("#txt_EIDNumber").val('');
+                            $('.eid-wrapper').removeClass('loading');
+                        }
+                    });
+
+                });
+                function readeid() {
+                    var event = document.createEvent('Event');
+                    event.initEvent('EID_EVENT');
+                    document.dispatchEvent(event);
+                }
+            }
+        };
+    </script>
+    <!--Emirates ID-->
+</body>
+
+</html>

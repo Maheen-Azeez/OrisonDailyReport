@@ -1,0 +1,91 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = OrisonDailyReport.Client
+build_property.RootNamespace = OrisonDailyReport.Client
+build_property.ProjectDir = E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Client\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/ErrorHandler/PageNotFound.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3JIYW5kbGVyXFBhZ2VOb3RGb3VuZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/ErrorHandler/ToastComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3JIYW5kbGVyXFRvYXN0Q29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/General/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJhbFxJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/General/Redirect.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJhbFxSZWRpcmVjdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Home/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Loading/LoadingScreen.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hZGluZ1xMb2FkaW5nU2NyZWVuLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/BranchCollectionsOverview.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXEJyYW5jaENvbGxlY3Rpb25zT3ZlcnZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/Fee_wiseCollection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXEZlZV93aXNlQ29sbGVjdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/ItemStockSale.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXEl0ZW1TdG9ja1NhbGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/OneDayCollectionDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXE9uZURheUNvbGxlY3Rpb25EZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/OneDayCollectionSummary.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXE9uZURheUNvbGxlY3Rpb25TdW1tYXJ5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/OnlineCollections.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXE9ubGluZUNvbGxlY3Rpb25zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Pages/Registers/UserWiseCollectionSummary.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJzXFVzZXJXaXNlQ29sbGVjdGlvblN1bW1hcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Shared/LoginLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/OrisonDailyReport_WASM/OrisonDailyReport/OrisonDailyReport/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-g4rahipl2x

@@ -1,0 +1,849 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\bin\\Release\\net6.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\obj\\Release\\net6.0\\compressed\\odwapxxyno.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\obj\\Release\\net6.0\\scopedcss\\bundle\\OrisonDailyReport.Client.styles.css",
+      "PackagePath": "staticwebassets\\OrisonDailyReport.Client.styles.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Admission.ico",
+      "PackagePath": "staticwebassets\\Images\\Admission.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ApprovalStatus.png",
+      "PackagePath": "staticwebassets\\Images\\ApprovalStatus.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ApproveReject.png",
+      "PackagePath": "staticwebassets\\Images\\ApproveReject.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ApproveReject_1.png",
+      "PackagePath": "staticwebassets\\Images\\ApproveReject_1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Ar.png",
+      "PackagePath": "staticwebassets\\Images\\Ar.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Arabic.png",
+      "PackagePath": "staticwebassets\\Images\\Arabic.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Arrow-up.png",
+      "PackagePath": "staticwebassets\\Images\\Arrow-up.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ArrowDownSrc.gif",
+      "PackagePath": "staticwebassets\\Images\\ArrowDownSrc.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ArrowDownSrc.png",
+      "PackagePath": "staticwebassets\\Images\\ArrowDownSrc.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\BackgroundOrisonLogo.png",
+      "PackagePath": "staticwebassets\\Images\\BackgroundOrisonLogo.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Clear.png",
+      "PackagePath": "staticwebassets\\Images\\Clear.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ClearFilter.png",
+      "PackagePath": "staticwebassets\\Images\\ClearFilter.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ColumnChooser.jpeg",
+      "PackagePath": "staticwebassets\\Images\\ColumnChooser.jpeg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ColumnChooser.png",
+      "PackagePath": "staticwebassets\\Images\\ColumnChooser.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\CompanyLogo.png",
+      "PackagePath": "staticwebassets\\Images\\CompanyLogo.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Discount.png",
+      "PackagePath": "staticwebassets\\Images\\Discount.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Discount1.png",
+      "PackagePath": "staticwebassets\\Images\\Discount1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\DiscountSchedule.png",
+      "PackagePath": "staticwebassets\\Images\\DiscountSchedule.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Documents.ico",
+      "PackagePath": "staticwebassets\\Images\\Documents.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Double-up-arrow.png",
+      "PackagePath": "staticwebassets\\Images\\Double-up-arrow.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Double-up-arrow1.png",
+      "PackagePath": "staticwebassets\\Images\\Double-up-arrow1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\En.png",
+      "PackagePath": "staticwebassets\\Images\\En.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\English.png",
+      "PackagePath": "staticwebassets\\Images\\English.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Filter.jpeg",
+      "PackagePath": "staticwebassets\\Images\\Filter.jpeg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Forward.png",
+      "PackagePath": "staticwebassets\\Images\\Forward.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\General.ico",
+      "PackagePath": "staticwebassets\\Images\\General.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\GreenArrow.jpg",
+      "PackagePath": "staticwebassets\\Images\\GreenArrow.jpg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ICClose.png",
+      "PackagePath": "staticwebassets\\Images\\ICClose.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ICProceed.png",
+      "PackagePath": "staticwebassets\\Images\\ICProceed.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\IcMenu.png",
+      "PackagePath": "staticwebassets\\Images\\IcMenu.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Invoice.png",
+      "PackagePath": "staticwebassets\\Images\\Invoice.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\ItemsView.png",
+      "PackagePath": "staticwebassets\\Images\\ItemsView.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\LockIcon.png",
+      "PackagePath": "staticwebassets\\Images\\LockIcon.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\AI.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\AI.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\AIS.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\AIS.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\AL.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\AL.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\AW.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\AW.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\CDR.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\CDR.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\GR.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\GR.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\IA.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\IA.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\ISR.jpeg",
+      "PackagePath": "staticwebassets\\Images\\Logo\\ISR.jpeg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\LogoHead.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\LogoHead.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\OP.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\OP.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\PR.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\PR.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\RA.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\RA.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\RI.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\RI.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\ZH.png",
+      "PackagePath": "staticwebassets\\Images\\Logo\\ZH.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Logo\\athenalogo.jpeg",
+      "PackagePath": "staticwebassets\\Images\\Logo\\athenalogo.jpeg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\MoreIcon.png",
+      "PackagePath": "staticwebassets\\Images\\MoreIcon.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Next.png",
+      "PackagePath": "staticwebassets\\Images\\Next.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Next1.png",
+      "PackagePath": "staticwebassets\\Images\\Next1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\NextOld.png",
+      "PackagePath": "staticwebassets\\Images\\NextOld.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Notes.ico",
+      "PackagePath": "staticwebassets\\Images\\Notes.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFAccount.png",
+      "PackagePath": "staticwebassets\\Images\\OFAccount.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFBill.png",
+      "PackagePath": "staticwebassets\\Images\\OFBill.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFEnter.png",
+      "PackagePath": "staticwebassets\\Images\\OFEnter.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFImport.png",
+      "PackagePath": "staticwebassets\\Images\\OFImport.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFPrePrint.png",
+      "PackagePath": "staticwebassets\\Images\\OFPrePrint.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFSend.png",
+      "PackagePath": "staticwebassets\\Images\\OFSend.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFadd.png",
+      "PackagePath": "staticwebassets\\Images\\OFadd.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFat.png",
+      "PackagePath": "staticwebassets\\Images\\OFat.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFclose.png",
+      "PackagePath": "staticwebassets\\Images\\OFclose.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFedit.png",
+      "PackagePath": "staticwebassets\\Images\\OFedit.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFgrid.png",
+      "PackagePath": "staticwebassets\\Images\\OFgrid.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFimg.png",
+      "PackagePath": "staticwebassets\\Images\\OFimg.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFmore.png",
+      "PackagePath": "staticwebassets\\Images\\OFmore.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFpage.png",
+      "PackagePath": "staticwebassets\\Images\\OFpage.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFpdf.png",
+      "PackagePath": "staticwebassets\\Images\\OFpdf.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFprint.png",
+      "PackagePath": "staticwebassets\\Images\\OFprint.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFque.png",
+      "PackagePath": "staticwebassets\\Images\\OFque.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFsave.png",
+      "PackagePath": "staticwebassets\\Images\\OFsave.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFsearch.png",
+      "PackagePath": "staticwebassets\\Images\\OFsearch.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OFsearchIc.png",
+      "PackagePath": "staticwebassets\\Images\\OFsearchIc.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Ok.png",
+      "PackagePath": "staticwebassets\\Images\\Ok.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\OrisonLogo.png",
+      "PackagePath": "staticwebassets\\Images\\OrisonLogo.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Orison_Logo.png",
+      "PackagePath": "staticwebassets\\Images\\Orison_Logo.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Orison_Logo_New.png",
+      "PackagePath": "staticwebassets\\Images\\Orison_Logo_New.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Parental.png",
+      "PackagePath": "staticwebassets\\Images\\Parental.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Pencil.png",
+      "PackagePath": "staticwebassets\\Images\\Pencil.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Prev.png",
+      "PackagePath": "staticwebassets\\Images\\Prev.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Process.png",
+      "PackagePath": "staticwebassets\\Images\\Process.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\RecurringImage.png",
+      "PackagePath": "staticwebassets\\Images\\RecurringImage.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Reload.png",
+      "PackagePath": "staticwebassets\\Images\\Reload.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\RightArrow.png",
+      "PackagePath": "staticwebassets\\Images\\RightArrow.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\RightArrowOld.png",
+      "PackagePath": "staticwebassets\\Images\\RightArrowOld.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\SMS.png",
+      "PackagePath": "staticwebassets\\Images\\SMS.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\Tax.png",
+      "PackagePath": "staticwebassets\\Images\\Tax.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\View.png",
+      "PackagePath": "staticwebassets\\Images\\View.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\addic.png",
+      "PackagePath": "staticwebassets\\Images\\addic.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\approve.png",
+      "PackagePath": "staticwebassets\\Images\\approve.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\approve1.png",
+      "PackagePath": "staticwebassets\\Images\\approve1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\approve3.png",
+      "PackagePath": "staticwebassets\\Images\\approve3.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\approved.png",
+      "PackagePath": "staticwebassets\\Images\\approved.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\approves.png",
+      "PackagePath": "staticwebassets\\Images\\approves.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\arabic-ConsentForm.jpeg",
+      "PackagePath": "staticwebassets\\Images\\arabic-ConsentForm.jpeg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\arabic-nonprescribed.jpeg",
+      "PackagePath": "staticwebassets\\Images\\arabic-nonprescribed.jpeg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\avatar.jpg",
+      "PackagePath": "staticwebassets\\Images\\avatar.jpg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\back.png",
+      "PackagePath": "staticwebassets\\Images\\back.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\budget.png",
+      "PackagePath": "staticwebassets\\Images\\budget.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\cancel.png",
+      "PackagePath": "staticwebassets\\Images\\cancel.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\close.png",
+      "PackagePath": "staticwebassets\\Images\\close.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\close1.png",
+      "PackagePath": "staticwebassets\\Images\\close1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\coin.png",
+      "PackagePath": "staticwebassets\\Images\\coin.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\coins.png",
+      "PackagePath": "staticwebassets\\Images\\coins.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\delete-big.png",
+      "PackagePath": "staticwebassets\\Images\\delete-big.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\delete1.png",
+      "PackagePath": "staticwebassets\\Images\\delete1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\delete16_16.gif",
+      "PackagePath": "staticwebassets\\Images\\delete16_16.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\delete16_16.png",
+      "PackagePath": "staticwebassets\\Images\\delete16_16.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\down-arrow.png",
+      "PackagePath": "staticwebassets\\Images\\down-arrow.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\edit1.png",
+      "PackagePath": "staticwebassets\\Images\\edit1.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\editic.png",
+      "PackagePath": "staticwebassets\\Images\\editic.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\email.png",
+      "PackagePath": "staticwebassets\\Images\\email.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\exToPdf.ico",
+      "PackagePath": "staticwebassets\\Images\\exToPdf.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\exToxls.ico",
+      "PackagePath": "staticwebassets\\Images\\exToxls.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\excel.png",
+      "PackagePath": "staticwebassets\\Images\\excel.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\finance.png",
+      "PackagePath": "staticwebassets\\Images\\finance.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\home.png",
+      "PackagePath": "staticwebassets\\Images\\home.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\icons8-back-67.png",
+      "PackagePath": "staticwebassets\\Images\\icons8-back-67.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\icons8-copy-96.png",
+      "PackagePath": "staticwebassets\\Images\\icons8-copy-96.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\icons8-mail-48.png",
+      "PackagePath": "staticwebassets\\Images\\icons8-mail-48.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\icons8-mail-96.png",
+      "PackagePath": "staticwebassets\\Images\\icons8-mail-96.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\icons8-trash-32.png",
+      "PackagePath": "staticwebassets\\Images\\icons8-trash-32.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\icons8-whatsapp-96.png",
+      "PackagePath": "staticwebassets\\Images\\icons8-whatsapp-96.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\iconshome.png",
+      "PackagePath": "staticwebassets\\Images\\iconshome.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\import.png",
+      "PackagePath": "staticwebassets\\Images\\import.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\left-arrow.png",
+      "PackagePath": "staticwebassets\\Images\\left-arrow.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\lock.png",
+      "PackagePath": "staticwebassets\\Images\\lock.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\logo.ico",
+      "PackagePath": "staticwebassets\\Images\\logo.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\money.png",
+      "PackagePath": "staticwebassets\\Images\\money.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\more.png",
+      "PackagePath": "staticwebassets\\Images\\more.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\new.png",
+      "PackagePath": "staticwebassets\\Images\\new.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\official.ico",
+      "PackagePath": "staticwebassets\\Images\\official.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\pdf.png",
+      "PackagePath": "staticwebassets\\Images\\pdf.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\pdf11.png",
+      "PackagePath": "staticwebassets\\Images\\pdf11.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\pdfNew.png",
+      "PackagePath": "staticwebassets\\Images\\pdfNew.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\personal.jpg",
+      "PackagePath": "staticwebassets\\Images\\personal.jpg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\plus.png",
+      "PackagePath": "staticwebassets\\Images\\plus.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\popDelete.png",
+      "PackagePath": "staticwebassets\\Images\\popDelete.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\post.png",
+      "PackagePath": "staticwebassets\\Images\\post.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\print.png",
+      "PackagePath": "staticwebassets\\Images\\print.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\printer.png",
+      "PackagePath": "staticwebassets\\Images\\printer.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\printic.png",
+      "PackagePath": "staticwebassets\\Images\\printic.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\question.png",
+      "PackagePath": "staticwebassets\\Images\\question.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\save.png",
+      "PackagePath": "staticwebassets\\Images\\save.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\saveic.png",
+      "PackagePath": "staticwebassets\\Images\\saveic.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\search.ico",
+      "PackagePath": "staticwebassets\\Images\\search.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\search.png",
+      "PackagePath": "staticwebassets\\Images\\search.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\send-Old.png",
+      "PackagePath": "staticwebassets\\Images\\send-Old.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\send.png",
+      "PackagePath": "staticwebassets\\Images\\send.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\sendic.png",
+      "PackagePath": "staticwebassets\\Images\\sendic.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\sibling.png",
+      "PackagePath": "staticwebassets\\Images\\sibling.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\site-logo.png",
+      "PackagePath": "staticwebassets\\Images\\site-logo.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\student.png",
+      "PackagePath": "staticwebassets\\Images\\student.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\switches.png",
+      "PackagePath": "staticwebassets\\Images\\switches.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\transport.ico",
+      "PackagePath": "staticwebassets\\Images\\transport.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\up-arrow.png",
+      "PackagePath": "staticwebassets\\Images\\up-arrow.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\upload.png",
+      "PackagePath": "staticwebassets\\Images\\upload.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\user.png",
+      "PackagePath": "staticwebassets\\Images\\user.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\Images\\view1.jpg",
+      "PackagePath": "staticwebassets\\Images\\view1.jpg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\appsettings.json",
+      "PackagePath": "staticwebassets\\appsettings.json"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\Card.css",
+      "PackagePath": "staticwebassets\\css\\Card.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\HomeOrisonSyncfusionStyles.css",
+      "PackagePath": "staticwebassets\\css\\HomeOrisonSyncfusionStyles.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\HomeStyle.css",
+      "PackagePath": "staticwebassets\\css\\HomeStyle.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\LTR.css",
+      "PackagePath": "staticwebassets\\css\\LTR.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\Loader.css",
+      "PackagePath": "staticwebassets\\css\\Loader.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\MainLayout.css",
+      "PackagePath": "staticwebassets\\css\\MainLayout.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\OrisonSyncfusionStyles.css",
+      "PackagePath": "staticwebassets\\css\\OrisonSyncfusionStyles.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\PageNotFound.css",
+      "PackagePath": "staticwebassets\\css\\PageNotFound.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\RTL.css",
+      "PackagePath": "staticwebassets\\css\\RTL.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\Style.css",
+      "PackagePath": "staticwebassets\\css\\Style.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\StyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\StyleSheet.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\Toast.css",
+      "PackagePath": "staticwebassets\\css\\Toast.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\TreeViewStyle.css",
+      "PackagePath": "staticwebassets\\css\\TreeViewStyle.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\blazing-berry\\bootstrap.css",
+      "PackagePath": "staticwebassets\\css\\blazing-berry\\bootstrap.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\blazing-berry\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\blazing-berry\\bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\README.md"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\ArrowUp.gif",
+      "PackagePath": "staticwebassets\\gif\\ArrowUp.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\IconError.gif",
+      "PackagePath": "staticwebassets\\gif\\IconError.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\IconSuccess.gif",
+      "PackagePath": "staticwebassets\\gif\\IconSuccess.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\IconWarning.gif",
+      "PackagePath": "staticwebassets\\gif\\IconWarning.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\Loading.gif",
+      "PackagePath": "staticwebassets\\gif\\Loading.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\Mail.gif",
+      "PackagePath": "staticwebassets\\gif\\Mail.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\Tick.gif",
+      "PackagePath": "staticwebassets\\gif\\Tick.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\gif\\loading-waiting.gif",
+      "PackagePath": "staticwebassets\\gif\\loading-waiting.gif"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\js\\Student.js",
+      "PackagePath": "staticwebassets\\js\\Student.js"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\js\\UserIdleTimer.js",
+      "PackagePath": "staticwebassets\\js\\UserIdleTimer.js"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\js\\boldreports-interop.js",
+      "PackagePath": "staticwebassets\\js\\boldreports-interop.js"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\js\\boldreports-interopOLD.js",
+      "PackagePath": "staticwebassets\\js\\boldreports-interopOLD.js"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\js\\external.js",
+      "PackagePath": "staticwebassets\\js\\external.js"
+    },
+    {
+      "Id": "E:\\OrisonDailyReport_WASM\\OrisonDailyReport\\OrisonDailyReport\\Client\\wwwroot\\js\\gridCustomizations.js",
+      "PackagePath": "staticwebassets\\js\\gridCustomizations.js"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.OrisonDailyReport.Client.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.build.OrisonDailyReport.Client.props",
+      "PackagePath": "build\\OrisonDailyReport.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.OrisonDailyReport.Client.props",
+      "PackagePath": "buildMultiTargeting\\OrisonDailyReport.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildTransitive.OrisonDailyReport.Client.props",
+      "PackagePath": "buildTransitive\\OrisonDailyReport.Client.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

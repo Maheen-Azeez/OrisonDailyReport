@@ -1,0 +1,30 @@
+﻿@if (contentLoaded)
+{
+    @ChildContent
+}
+else
+{
+    <head>
+        <link href="css/Loader.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div style="padding-top:700px;">
+            <div class="loader"></div>
+            <svg width="2500" height="2500" viewBox="126.444 2.281 589 589"><image href="images/BackgroundOrisonLogo.png" height="590px" width="770px" /></svg>
+        </div>
+    </body>
+}
+
+@code {
+
+    bool contentLoaded;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(4000);
+        contentLoaded = true;
+    }
+}

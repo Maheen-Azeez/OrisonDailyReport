@@ -1,0 +1,562 @@
+﻿@page "/OneDayCollectionDetails"
+
+@using System.Data
+@using OrisonDailyReport.Client.Services
+@using OrisonDailyReport.Shared.Entities.BoldReport
+@using OrisonDailyReport.Shared.Entities.General
+@using OrisonDailyReport.Shared.Entities.Login
+@using OrisonDailyReport.Shared.Entities.Registers
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.DropDowns;
+@using Syncfusion.Blazor.Calendars;
+@using Syncfusion.Blazor.Spinner;
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Inputs
+@using System.Dynamic;
+@using Newtonsoft.Json
+@using System.Web
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject OrisonDailyReport.Client.Logics.Contract.Registers.IAccountsMain _accountsmain
+@inject OrisonDailyReport.Client.Logics.Contract.BoldReport.IBoldReportManager _BoldReport
+@inject OrisonDailyReport.Client.Logics.Contract.General.ICompanyManager _ICompanyManager
+@inject IJSRuntime JsRuntime
+@inject NavigationManager _NavManager
+@inject ToastService ToastService
+@inject HttpClient http
+@inject GlobalService _GlobalServ
+@using Microsoft.Extensions.Localization
+@using OrisonDailyReport.Client.Resources
+@inject IStringLocalizer<SfResources> Localizer
+
+
+<head>
+    <link href="css/OrisonSyncfusionStyles.css" rel="stylesheet" />
+</head>
+
+<div>
+    <div class="box-card-shadow">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <SfButton IconCss="Icon excel" CssClass="e-btn4" @onclick="@ExportExcel"></SfButton>
+                <SfButton IconCss="Icon pdf" CssClass="e-btn4" @onclick="@ExportPdf"></SfButton>
+                <SfComboBox @bind-Value="@Description" Placeholder="@placeHolder" TValue="string" TItem="String" DataSource="@DropdownData" Width="180px"></SfComboBox>
+                <SfTextBox @ref="search" Input="OnInput" Placeholder=@Localizer["Global Search"] Width="220px" ShowClearButton="true" CssClass="e-btn2"></SfTextBox>
+                <SfDatePicker @bind-Value="@SDate" Format="dd/MM/yyyy" title=@Localizer["From Date"] Width="150px" Placeholder=@Localizer["From Date"]></SfDatePicker>
+                <SfDatePicker @bind-Value="@EDate" Format="dd/MM/yyyy" title=@Localizer["To Date"] Width="150px" Placeholder=@Localizer["To Date"]></SfDatePicker>
+                <SfButton IconCss="Icon search" @onclick="@Search_Click" title=@Localizer["Search"] CssClass="widthset"></SfButton>
+                <SfButton IconCss="Icon preprint" CssClass="e-btn4" @onclick="@DownLoadDocument"></SfButton>
+            </div>
+        </div>
+    </div>
+
+
+        <div>
+            <div class="box-card-shadow">
+                    <SfGrid ID="SGrid" DataSource="@details"
+                        GridLines="GridLine.Both"
+                        AllowSorting="true"
+                        AllowFiltering="true"
+                        AllowExcelExport="true"
+                        AllowPdfExport="true"
+                        RowHeight="24"
+                        Height="@GridHeight"
+                        Width="100%"
+                        AllowPaging="true"
+                        AllowResizing="true"
+                        @ref="Grid">
+                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel" ShowFilterBarStatus="true"></GridFilterSettings>
+                    <GridPageSettings PageSize="100"></GridPageSettings>
+
+                    <GridAggregates>
+                        <GridAggregate>
+                            <GridAggregateColumns>
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Cash) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div style="padding-top:5px;">
+                                               <div style="align-items:end;">@aggregate.Sum</div>
+                                            </div>
+
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Cheque) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Card) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.TT) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.OnlinePayment) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Total) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.TUITIONFEE) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.TransportationFee) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.DEVELOPMENTFEE) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.AnnualFees) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.PTAFee) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.AdmFee) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.CompIpFee) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.ScienceLabsFee) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.LATEFEEFINE) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+
+                                <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.PFund) Type="AggregateType.Sum">
+                                    <FooterTemplate>
+                                        @{
+                                            var aggregate = (context as AggregateTemplateContext);
+                                            <div>
+
+                                                <div style="align-items:end;">@aggregate.Sum</div>
+
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                            </GridAggregateColumns>
+                        </GridAggregate>
+                    </GridAggregates>
+
+                    <GridColumns>
+                        <GridColumn Field=@nameof(dtAccountsMain.Vno) HeaderText=@Localizer["VNo"] TextAlign="TextAlign.Left" Width="90"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.VType) HeaderText=@Localizer["VType"] TextAlign="TextAlign.Left" Width="90"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Date) HeaderText=@Localizer["Date"] Format="dd/MM/yyyy" TextAlign="TextAlign.Left" Width="100"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.StudentCode) HeaderText=@Localizer["Code"] TextAlign="TextAlign.Left" Width="100"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.StudentName) HeaderText=@Localizer["Account Name"] TextAlign="TextAlign.Left" Width="180"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Children) HeaderText=@Localizer["Student Details"] TextAlign="TextAlign.Left" Width="250"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Class) HeaderText=@Localizer["Class"] TextAlign="TextAlign.Left" Width="100"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Division) HeaderText=@Localizer["Division"] TextAlign="TextAlign.Left" Width="110"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.UserName) HeaderText=@Localizer["User Name"] TextAlign="TextAlign.Left" Width="180"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.ChequeDetails) HeaderText=@Localizer["Cheque Details"] TextAlign="TextAlign.Left" Width="180"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.CardDetails) HeaderText=@Localizer["Card Details"] TextAlign="TextAlign.Left" Width="180"></GridColumn>
+                        @if (cmpnyCode == "ARCADIA")
+                        {
+                            <GridColumn Field=@nameof(dtAccountsMain.PaymentReference) HeaderText=@Localizer["Payment Reference"] TextAlign="TextAlign.Left" Width="180"></GridColumn>
+                        }
+                        <GridColumn Field=@nameof(dtAccountsMain.Cash) HeaderText=@Localizer["Cash"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Cheque) HeaderText=@Localizer["Cheque"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Card) HeaderText=@Localizer["Card"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.TT) HeaderText=@Localizer["TT"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.OnlinePayment) HeaderText=@Localizer["Online Payment"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                        <GridColumn Field=@nameof(dtAccountsMain.Total) HeaderText=@Localizer["Total"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                    </GridColumns>
+                    @if (Loading)
+                    {
+                        @* <div style="padding-top:700px;"> *@
+                        @* <div class="loader"></div> *@
+                        <svg width="2500" height="2500" viewBox="126.444 2.281 589 589"><image href="gif/loading-waiting.gif" height="590px" width="770px" /></svg>
+                        @* </div> *@
+                    }
+@*                     <SfSpinner @bind-Visible="@Loading"></SfSpinner>
+ *@
+                </SfGrid>
+
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-between">
+                        <label class="language-footer-label">@Localizer["GRAND TOTAL COLLECTION"]</label>
+                        <label class="language-footer-value">@GrandTotal</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+</div>
+
+
+@code {
+
+    DateTime SDate = DateTime.Now, EDate = DateTime.Now;
+    string AccYear = "", Description = string.Empty, Con = string.Empty, cmpnyCode = string.Empty;
+    public bool Isload = false, Loading = false;
+    public int? RowIndex { get; set; } = 1003;
+    int StudentCount = 0;
+    decimal cashSum, ChequeSum, TTSum, CardSum, onlineSum;
+    decimal GrandTotal;
+    int UserID, AccountID, BranchID;
+    bool AllowOpen = false;
+    SfTextBox search;
+    string GridHeight = "500px";
+    string placeHolder = string.Empty;
+    public SfGrid<dtAccountsMain> Grid { get; set; }
+    private IList<dtAccountsMain> details { get; set; }
+    private IList<dtAccountsMain> CountList { get; set; }
+    dtAccountsMain Employee = new dtAccountsMain();
+    DtoLoginModel? info = new DtoLoginModel();
+    public List<ExpandoObject> companyDetails = new List<ExpandoObject>();
+    IEnumerable<string> DropdownData = new List<string>() {
+      "Default",
+    };
+    private ElementReference codeBlock;
+    public string? userName { get; set; }
+    public string? Category { get; set; }
+    public string? DecimalFormat { get; set; } = "0.00";
+
+    public async Task DownLoadDocument()
+    {
+
+        try
+        {
+            var data = await Grid.GetFilteredRecordsAsync();
+            var dataList = new List<object>();
+
+            if (data is IEnumerable<object> enumerableData)
+            {
+                foreach (var item in enumerableData)
+                {
+                    dataList.Add(item);
+                }
+            }
+            else
+            {
+                dataList.Add(data);
+            }
+            companyDetails = new List<ExpandoObject>();
+            companyDetails = await _ICompanyManager.GetCompanyDetails(BranchID);
+            DataSource dt = new DataSource
+            {
+                Parameters = new List<JSReportParameter>
+                {
+                    new JSReportParameter()
+                    {
+                        Name = "DateFrom",
+                        Values = new List<string>(){ SDate.ToString() }
+                    },
+                    new JSReportParameter()
+                    {
+                        Name = "DateTo",
+                        Values = new List<string>(){ EDate.ToString() }
+                    }
+                }
+            };
+            dt.DataSet1 = new List<ExpandoObject>();
+            dt.DataSet2 = new List<ExpandoObject>();
+            dt.ReportName = "ONE DAY COLLECTION DETAILS";
+            dt.DataSet1 = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(dataList));
+            dt.Company = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(companyDetails));
+            if (dt.ReportName != "")
+            {
+                var Result = await _BoldReport.GetReport(dt);
+                var filename = "Daily Collection Details_" + SDate.ToString("dd/MM/yyyy") + ".pdf";
+                await JsRuntime.InvokeVoidAsync("jsSaveAsFile", filename, Convert.ToBase64String(Result.ToArray()));
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await GetLoginInfo();
+            if (info != null)
+            {
+                DecimalFormat = _GlobalServ.GlobalCurrencyFormat;
+                if (DecimalFormat == null || DecimalFormat == "")
+                {
+
+                    DecimalFormat = "0.00";
+                }
+                userName = info.Username;
+                UserID = info.UserID;
+                BranchID = info.BranchID;
+                Category = info.Category;
+                cmpnyCode = info.CompanyCode;
+                Description = "Default";
+                AccYear = await sessionStorage.GetItemAsync<string>("AcademicYear");
+                var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+                GridHeight = (dimension.Height - 180).ToString() + "px";
+                if (cmpnyCode == "DURHAM")
+                {
+                    placeHolder = "Fee Type";
+                    DropdownData = await _accountsmain.GetFeeType(AccYear, BranchID);
+                }
+                else
+                {
+                    placeHolder = "Default";
+                }
+                SDate = DateTime.Now;
+                EDate = DateTime.Now;
+            }
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await JsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+
+    public async void Search_Click()
+    {
+        AllowOpen = false;
+        Loading = true;
+        try
+        {
+            string startDate = SDate.Month.ToString("00") + "-" + SDate.Day.ToString("00") + "-" + SDate.Year;
+            string endDate = EDate.Month.ToString("00") + "-" + EDate.Day.ToString("00") + "-" + EDate.Year;
+            details = (await _accountsmain.GetCollections(BranchID, AccYear, startDate.ToString(), endDate.ToString(), Description, "DailyCollectionDetails")).ToList();
+            GetDayTotal();
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await JsRuntime.InvokeVoidAsync("window.history.back");
+        }
+        finally
+        {
+            Loading = false;
+            AllowOpen = true;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+
+    public decimal GetDayTotal()
+    {
+        cashSum = Convert.ToDecimal(Queryable.Sum(details.Select(x => (x.Cash)).AsQueryable()));
+        ChequeSum = Convert.ToDecimal(Queryable.Sum(details.Select(x => (x.Cheque)).AsQueryable()));
+        TTSum = Convert.ToDecimal(Queryable.Sum(details.Select(x => (x.TT)).AsQueryable()));
+        CardSum = Convert.ToDecimal(Queryable.Sum(details.Select(x => (x.Card)).AsQueryable()));
+        onlineSum = Convert.ToDecimal(Queryable.Sum(details.Select(x => (x.OnlinePayment)).AsQueryable()));
+        return GrandTotal = Math.Round((cashSum + ChequeSum + TTSum + CardSum + onlineSum), 2);
+    }
+
+    public async Task ExportExcel()
+    {
+        ExcelExportProperties ExcelProperties = new ExcelExportProperties();
+        ExcelProperties.FileName = "DailyCollectionDetailed.xlsx";
+        await this.Grid.ExportToExcelAsync(ExcelProperties);
+    }
+
+    public async Task ExportPdf()
+    {
+        PdfExportProperties PdfProperties = new PdfExportProperties();
+        PdfProperties.FileName = "DailyCollectionDetailed.pdf";
+        await this.Grid.ExportToPdfAsync(PdfProperties);
+    }
+
+    public void OnInput(InputEventArgs Args)
+    {
+        if (Args.Value != null)
+        {
+            Grid.Search(Args.Value);
+        }
+    }
+    private async Task GetLoginInfo()
+    {
+        try
+        {
+            var token = await sessionStorage.GetItemAsync<string>("token");
+            string param = await http.GetStringAsync("API/Encryption/Decrypt?Text=" + HttpUtility.UrlEncode(token));
+            if (!string.IsNullOrEmpty(param))
+                info = JsonConvert.DeserializeObject<DtoLoginModel>(param);
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await JsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+}
+
+

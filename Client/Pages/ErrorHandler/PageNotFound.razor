@@ -1,0 +1,108 @@
+﻿@page "/NotFound"
+
+@layout LoginLayout
+
+@using System.Web
+@using Newtonsoft.Json
+@using OrisonDailyReport.Shared.Entities.General
+@using OrisonDailyReport.Shared.Entities.Login
+@using OrisonDailyReport.Client.Services
+@using Blazored.SessionStorage
+@inject HttpClient http
+@inject IJSRuntime JsRuntime
+@inject ToastService ToastService
+@inject NavigationManager NavManager
+@inject ISessionStorageService sessionStorage
+@inject OrisonDailyReport.Client.Services.GeneralServices _generalService
+
+<head>
+    <link href="css/PageNotFound.css" rel="stylesheet" />
+</head>
+
+<div class="box-card-shadow" style="margin: 15px;padding: 15px;">
+    <div style="text-align:center;vertical-align:middle;padding-top:10%;height:@Height">
+        <div class="row pt-2">
+            <div class="col-md-12 text-center">
+                <h3 class="animate-charcter-main">404</h3>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-12 text-center">
+                <h3 class="animate-charcter">We're Sorry</h3>
+            </div>
+            <div class="col-md-12 text-center">
+                <h3 class="animate-charcter">The Requested Page Not Available Now</h3>
+            </div>
+        </div>
+        @if (Autherized)
+        {
+            <div class="row pt-2">
+                <div class="col-md-12 text-center">
+                    <button class="custom-btn btn-15" @onclick="HomeClick">Back To Home</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    string? Height = "550px", HomeURL;
+    DtoLoginModel? info = new DtoLoginModel();
+    bool Autherized = false;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //Dynamic Height
+            var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+            Height = (dimension.Height - 90).ToString() + "px";
+            //Dynamic Height
+            await GetLoginInfo();
+            if (info != null)
+            {
+                Autherized = true;
+            }
+            else
+            {
+                HomeURL = await _generalService.GetURL("HomeURL");
+                if (!string.IsNullOrEmpty(HomeURL))
+                    NavManager.NavigateTo(HomeURL ?? "");
+                else
+                    await JsRuntime.InvokeVoidAsync("window.history.back(2)");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+    private void HomeClick()
+    {
+        NavManager.NavigateTo("Home");
+    }
+    private async Task GetLoginInfo()
+    {
+        try
+        {
+            string param = await http.GetStringAsync("API/Encryption/Decrypt?Text=" + HttpUtility.UrlEncode(await sessionStorage.GetItemAsync<string>("token")));
+            if (!string.IsNullOrEmpty(param))
+                info = JsonConvert.DeserializeObject<DtoLoginModel>(param)!;
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await JsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+}

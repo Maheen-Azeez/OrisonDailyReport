@@ -1,0 +1,11 @@
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\bin\Debug\net6.0\OrisonDailyReport.Shared.deps.json
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\bin\Debug\net6.0\OrisonDailyReport.Shared.dll
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\bin\Debug\net6.0\OrisonDailyReport.Shared.pdb
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\OrisonDailyReport.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\OrisonDailyReport.Shared.AssemblyInfoInputs.cache
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\OrisonDailyReport.Shared.AssemblyInfo.cs
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\OrisonDailyReport.Shared.csproj.CoreCompileInputs.cache
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\OrisonDailyReport.Shared.dll
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\refint\OrisonDailyReport.Shared.dll
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\OrisonDailyReport.Shared.pdb
+E:\OrisonDailyReport_WASM\OrisonDailyReport\OrisonDailyReport\Shared\obj\Debug\net6.0\ref\OrisonDailyReport.Shared.dll

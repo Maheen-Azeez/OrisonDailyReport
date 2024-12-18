@@ -1,0 +1,48 @@
+﻿@page "/Home"
+@using OrisonDailyReport.Shared.Entities.General
+@inject IJSRuntime JsRuntime
+@using Microsoft.Extensions.Localization
+@using OrisonDailyReport.Client.Resources
+@inject IStringLocalizer<SfResources> Localizer
+<head>
+    <link href="css/OrisonSyncfusionStyles.css" rel="stylesheet" />
+    <link href="css/HomeOrisonSyncfusionStyles.css" rel="stylesheet" />
+</head>
+
+<div class="container" style="height: @DeviceHeight;">
+    <div class="row" style=" padding-top: 15%;">
+        <div class="col-md-12 text-center">
+            <h3 class="animate-charcter">@Localizer["Orison Daily Reports"]</h3>
+        </div>
+    </div>
+</div>
+
+@code {
+    int AccountID, BranchID, UserID;
+    string DeviceHeight = "", StudentName = "", CmbAccYear = "", imgSchoolLogo = "", Con, Category;
+    public bool AddEdit = false;
+    public bool popStudents = false;
+    public bool popAlert = false;
+    private string Xvalue = "center";
+    private string Yvalue = "center";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+            DeviceHeight = dimension.Height - 90 + "px";
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+    public void AddEditShortcut()
+    {
+        AddEdit = !AddEdit;
+    }
+
+}

@@ -1,0 +1,597 @@
+﻿@page "/OneDayCollectionSummary"
+
+@using System.Data
+@using Microsoft.Extensions.Configuration
+@using OrisonDailyReport.Client.Services
+@using OrisonDailyReport.Shared.Entities.Login
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Blazor.DropDowns;
+@using Syncfusion.Blazor.Calendars;
+@using Syncfusion.Blazor.Spinner;
+@using Syncfusion.Blazor.Inputs;
+@using Syncfusion.Blazor.SplitButtons
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Data
+@using OrisonDailyReport.Shared.Entities.BoldReport
+@using OrisonDailyReport.Shared.Entities.Registers
+@using OrisonDailyReport.Shared.Entities.General
+@using System.Dynamic;
+@using Newtonsoft.Json
+@using OrisonDailyReport.Client.Logics.Contract.General
+@using System.Web
+@inject NavigationManager _NavManager
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject OrisonDailyReport.Client.Logics.Contract.Registers.IAccountsMain _accountsmain
+@inject OrisonDailyReport.Client.Logics.Contract.BoldReport.IBoldReportManager _BoldReport
+@inject OrisonDailyReport.Client.Logics.Contract.General.IUserLoginManager _userLoginManager
+@inject OrisonDailyReport.Client.Logics.Contract.General.ICompanyManager _ICompanyManager
+
+@inject IConfiguration Configuration
+@inject MailService mailService
+@inject IJSRuntime jsRuntime
+@inject HttpClient Http
+@inject ToastService ToastService
+@inject GlobalService _GlobalServ
+@using Microsoft.Extensions.Localization
+@using OrisonDailyReport.Client.Resources
+@inject IStringLocalizer<SfResources> Localizer
+<head>
+    <link href="css/OrisonSyncfusionStyles.css" rel="stylesheet" />
+</head>
+
+<div>
+
+    <div class="box-card-shadow">
+        <div class="row">
+            <div class="col-md-12">
+                <SfButton IconCss="Icon excel" CssClass="e-btn4" @onclick="@ExportExcel"></SfButton>
+                <SfComboBox @bind-Value="@Description" TValue="string" TItem="String" DataSource="@DropdownData" Width="180px">
+                </SfComboBox>
+                <SfTextBox @ref="search" Input="OnInput" Placeholder=@Localizer["Global Search"] Width="220px" ShowClearButton="true" CssClass="e-btn2"></SfTextBox>
+                <SfDatePicker @bind-Value="@SDate" Format="dd/MM/yyyy" title=@Localizer["From Date"] Width="150px" Placeholder=@Localizer["From Date"]></SfDatePicker>
+                              <SfDatePicker @bind-Value="@EDate" Format="dd/MM/yyyy" title=@Localizer["To Date"] Width="150px" Placeholder=@Localizer["To Date"]></SfDatePicker>
+                              <SfButton IconCss="Icon search" @onclick="@Search_Click" title=@Localizer["Search"] CssClass="e-btn4 "></SfButton>
+                <SfButton IconCss="Icon preprint" CssClass="e-btn4 " @onclick="@DownLoadDocument"></SfButton>
+                @if (cmpnyCode == "LEAMS STAG" || cmpnyCode == "AIS STAG" || cmpnyCode == "TIAD SATG" || cmpnyCode == "GHL STAG" || cmpnyCode == "TOS STAG" || cmpnyCode == "AICS STAG" || cmpnyCode == "MM STAG" ||
+                cmpnyCode == "LEAMS" || cmpnyCode == "AIS" || cmpnyCode == "TIAD" || cmpnyCode == "GHL" || cmpnyCode == "TOS" || cmpnyCode == "AICS" || cmpnyCode == "MM")
+                {
+                    <SfButton IconCss="Icon preprint" Content=@Localizer["Summary"] CssClass="btn" @onclick="@DownLoadSummary"></SfButton>
+                    <SfButton IconCss="Icon Mail" CssClass="e-btn4 " @onclick="@(async () => await Email_click())"></SfButton>
+
+                }
+            </div>
+
+        </div>
+        <div class="col-lg-12 control-section toast-default-section">
+            <SfToast ShowCloseButton="true" ID="toast_type" @ref="ToastObj">
+                <ToastPosition X="@ToastPosition"></ToastPosition>
+            </SfToast>
+        </div>
+    </div>
+    <div>
+        <div class="box-card-shadow">
+
+
+            <SfGrid ID="Grid" DataSource="@summary"
+                    GridLines="GridLine.Both"
+                    AllowSorting="true"
+                    AllowFiltering="true"
+                    AllowExcelExport="true"
+                    AllowPdfExport="true"
+                    AllowPaging="true"
+                    AllowResizing="true"
+                    Height="@GridHeight"
+                    RowHeight="24"
+                    Width="100%"
+                    @ref="Grid">
+                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel" ShowFilterBarStatus="true"></GridFilterSettings>
+                <GridPageSettings PageSize="100"></GridPageSettings>
+                <GridAggregates>
+                    <GridAggregate>
+                        <GridAggregateColumns>
+                            <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Cash) Type="AggregateType.Sum">
+                                <FooterTemplate>
+                                    @{
+                                        // var aggregate = (context as AggregateTemplateContext);
+                                        // <div style="padding-top:5px;">
+                                        //     <div style="font-size:13px; position: absolute; left: 7px;">TOTAL AMOUNT</div> <div style="align-items:end;">@aggregate.Sum</div>@*<div style="align-items:end;">@GrandTotal</div><div style="align-items:end;">@StudentCount</div>*@
+                                        // </div
+                                        var aggregate = (context as AggregateTemplateContext);
+                                        <div style="padding-top:5px;">
+                                            <div style="align-items:end;">@aggregate.Sum</div>
+                                        </div>
+
+                                    }
+                                </FooterTemplate>
+                            </GridAggregateColumn>
+
+
+                            <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Cheque) Type="AggregateType.Sum">
+                                <FooterTemplate>
+                                    @{
+                                        var aggregate = (context as AggregateTemplateContext);
+                                        <div>
+                                            <div style="align-items:end;">@aggregate.Sum</div>
+
+                                        </div>
+
+                                    }
+                                </FooterTemplate>
+                            </GridAggregateColumn>
+                            <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Card) Type="AggregateType.Sum">
+                                <FooterTemplate>
+                                    @{
+                                        var aggregate = (context as AggregateTemplateContext);
+                                        <div>
+                                            <div style="align-items:end;">@aggregate.Sum</div>
+
+                                        </div>
+
+                                    }
+                                </FooterTemplate>
+                            </GridAggregateColumn>
+                            <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.TT) Type="AggregateType.Sum">
+                                <FooterTemplate>
+                                    @{
+                                        var aggregate = (context as AggregateTemplateContext);
+                                        <div>
+
+                                            <div style="align-items:end;">@aggregate.Sum</div>
+
+                                        </div>
+                                    }
+                                </FooterTemplate>
+                            </GridAggregateColumn>
+                            <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.OnlinePayment) Type="AggregateType.Sum">
+                                <FooterTemplate>
+                                    @{
+                                        var aggregate = (context as AggregateTemplateContext);
+                                        <div>
+
+                                            <div style="align-items:end;">@aggregate.Sum</div>
+
+                                        </div>
+                                    }
+                                </FooterTemplate>
+                            </GridAggregateColumn>
+
+                            <GridAggregateColumn Format="@DecimalFormat" Field=@nameof(dtAccountsMain.Total) Type="AggregateType.Sum">
+                                <FooterTemplate>
+                                    @{
+                                        var aggregate = (context as AggregateTemplateContext);
+                                        <div>
+
+                                            <div style="align-items:end;">@aggregate.Sum</div>
+
+                                        </div>
+                                    }
+                                </FooterTemplate>
+                            </GridAggregateColumn>
+
+                        </GridAggregateColumns>
+                    </GridAggregate>
+                </GridAggregates>
+                <GridColumns>
+                    <GridColumn Field=@nameof(dtAccountsMain.Vno) HeaderText=@Localizer["VNo"] TextAlign="TextAlign.Left" Width="90"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.VType) HeaderText=@Localizer["VType"] TextAlign="TextAlign.Left" Width="90"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.VDate) HeaderText=@Localizer["Date"] Format="dd/MM/yyyy" TextAlign="TextAlign.Left" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.AccountCode) HeaderText=@Localizer["SCode"] TextAlign="TextAlign.Left" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.AccountName) HeaderText=@Localizer["Student Name"] TextAlign="TextAlign.Left" Width="180"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.Class) HeaderText=@Localizer["Class"] TextAlign="TextAlign.Left" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.Division) HeaderText=@Localizer["Division"] TextAlign="TextAlign.Left" Width="110"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.Cash) HeaderText=@Localizer["Cash"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.Cheque) HeaderText=@Localizer["Cheque"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.Card) HeaderText=@Localizer["Card"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.TT) HeaderText=@Localizer["TT"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.OnlinePayment) HeaderText=@Localizer["Online Payment"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="180" Format="@DecimalFormat"></GridColumn>
+                    <GridColumn Field=@nameof(dtAccountsMain.Total) HeaderText=@Localizer["Total"] HeaderTextAlign="TextAlign.Left" TextAlign="TextAlign.Right" Width="100" Format="@DecimalFormat"></GridColumn>
+                </GridColumns>
+                @if (Loading)
+                {
+                    <svg width="2500" height="2500" viewBox="126.444 2.281 589 589"><image href="gif/loading-waiting.gif" height="590px" width="770px" /></svg>
+                }
+            </SfGrid>
+
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-between">
+                        <label class="language-footer-label">@Localizer["GRAND TOTAL COLLECTION"]</label>
+                        <label class="language-footer-value">@GrandTotal</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <SfDialog Width="800px" IsModal="true" @bind-Visible="PopupMail" ShowCloseIcon="true">
+        <DialogTemplates>
+            <Header>
+                Collection Summary
+            </Header>
+            <Content>
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="font-weight:bold;">@Localizer["Payment Mode"]</th>
+                                <th style="font-weight:bold;">@Localizer["Amount"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Localizer["Cash"]</td>
+                                <td>@cashSum</td>
+                            </tr>
+                            <tr>
+                                <td>@Localizer["Card"]</td>
+                                <td>@CardSum</td>
+                            </tr>
+                            <tr>
+                                <td>@Localizer["Cheque"]</td>
+                                <td>@ChequeSum</td>
+                            </tr>
+                            <tr>
+                                <td>@Localizer["TT"]</td>
+                                <td>@TTSum</td>
+                            </tr>
+                            <tr>
+                                <td>@Localizer["OnlinePayment"]</td>
+                                <td>@onlineSum</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">@Localizer["Total"]</td>
+                                <td style="font-weight:bold;">@GrandTotal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <div style="text-align:right;">
+                            <SfProgressButton IconCss="Icon Mail" Content=@Localizer["Send"] EnableProgress="true" CssClass="e-btn" @onclick="@(async () => await SendMail_Click())">
+                                <ProgressButtonSpinSettings Position="SpinPosition.Center"></ProgressButtonSpinSettings>
+                                <ProgressButtonAnimationSettings Effect="Syncfusion.Blazor.SplitButtons.AnimationEffect.ZoomOut"></ProgressButtonAnimationSettings>
+                            </SfProgressButton>
+                            <SfButton Content=@Localizer["Cancel"] @onclick="@(()=>PopupMail=false)" CssClass="e-btn"></SfButton>
+                        </div>
+                    </div>
+                </div>
+            </Content>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@DialogEffect.None"></DialogAnimationSettings>
+    </SfDialog>
+
+</div>
+
+
+@code {
+
+    DateTime SDate = DateTime.Now, EDate = DateTime.Now;
+    string Description = "Default", AccYear = "", Con, cmpnyCode;
+    public bool PopupMail = false;
+    public bool Isload = false, Loading = false;
+    public string SelectedCustomer { get; set; }
+    public string? Category { get; set; }
+    public string? userName { get; set; }
+    public int? RowIndex { get; set; } = 1003;
+    int StudentCount = 0;
+    decimal cashSum, ChequeSum, TTSum, CardSum, onlineSum;
+    decimal GrandTotal;
+    string StartDate, EndDate;
+    int UserID, AccountID, BranchID;
+    bool AllowOpen = false;
+    SfTextBox search;
+    SfProgressButton progressButton;
+    private string ToastPosition = "Right";
+    SfToast ToastObj;
+    public static string ToastContent;
+    private List<ToastModel> Toast = new List<ToastModel>
+{
+         new ToastModel{ Title = "Success!", Content=ToastContent, CssClass="e-toast-success", Icon="e-success toast-icons" },
+        new ToastModel{ Title = "Error!", Content=ToastContent, CssClass="e-toast-danger", Icon="e-error toast-icons" },
+
+    };
+
+    public SfGrid<dtAccountsMain> Grid { get; set; }
+
+    public dtAccountsMain dtAccounts = new dtAccountsMain();
+    public IList<dtAccountsMain> summary { get; set; }
+    private IList<dtAccountsMain> CountList { get; set; }
+    string GridHeight = "500px";
+    IEnumerable<string> DropdownData = new List<string>() {
+      "Default"
+    };
+    private ElementReference codeBlock;
+    DtoLoginModel info = new DtoLoginModel();
+    public string? DecimalFormat { get; set; } = "0.00";
+    public async Task DownLoadDocument()
+    {
+        try
+        {
+
+            var data = await Grid.GetFilteredRecordsAsync();
+            // var dataList = new List<object>();
+
+            // if (data is IEnumerable<object> enumerableData)
+            // {
+            //     foreach (var item in enumerableData)
+            //     {
+            //         dataList.Add(item);
+            //     }
+            // }
+            // else
+            // {
+            //     dataList.Add(data);
+            // }
+            companyDetails = new List<ExpandoObject>();
+            companyDetails = await _ICompanyManager.GetCompanyDetails(BranchID);
+            DataSource dt = new DataSource
+                {
+                    Parameters = new List<JSReportParameter>
+                {
+                    new JSReportParameter()
+                    {
+                        Name = "DateFrom",
+                        Values = new List<string>(){ SDate.ToString() }
+                    },
+                    new JSReportParameter()
+                    {
+                        Name = "DateTo",
+                        Values = new List<string>(){ EDate.ToString() }
+                    }
+                }
+                };
+            dt.DataSet1 = new List<ExpandoObject>();
+            dt.Company = new List<ExpandoObject>();
+            dt.ReportName = "collection summary";
+            dt.DataSet1 = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(data));
+            dt.Company = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(companyDetails));
+            if (dt.ReportName != "")
+            {
+                var Result = await _BoldReport.GetReport(dt);
+                var filename = "Daily Collection Summary_" + SDate.ToString("dd/MM/yyyy") + ".pdf";
+                await jsRuntime.InvokeVoidAsync("jsSaveAsFile", filename, Convert.ToBase64String(Result.ToArray()));
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+
+    }
+
+
+    private System.Timers.Timer _timer;
+    protected override async Task OnInitializedAsync()
+    {
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += async (sender, e) => await print();
+        AccYear = await sessionStorage.GetItemAsync<string>("AcademicYear");
+        var dimension = await jsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+        GridHeight = (dimension.Height - 180).ToString() + "px";
+        Description = "Default";
+        SDate = DateTime.Now;
+        EDate = DateTime.Now;
+        await GetLoginInfo();
+        if (info != null)
+        {
+            DecimalFormat = _GlobalServ.GlobalCurrencyFormat;
+            if (DecimalFormat == null || DecimalFormat == "")
+            {
+
+                DecimalFormat = "0.00";
+            }
+            userName = info.Username;
+            UserID = info.UserID;
+            BranchID = info.BranchID;
+            Category = info.Category;
+            cmpnyCode = info.CompanyCode;
+        }
+        else
+        {
+
+        }
+    }
+    public async Task print()
+    {
+        Console.WriteLine("timer triggred");
+    }
+
+
+    public async void Search_Click()
+    {
+        AllowOpen = false;
+        Loading = true;
+        string startDate = SDate.Month.ToString("00") + "-" + SDate.Day.ToString("00") + "-" + SDate.Year;
+        string endDate = EDate.Month.ToString("00") + "-" + EDate.Day.ToString("00") + "-" + EDate.Year;
+        summary = (await _accountsmain.GetCollections(BranchID, AccYear, startDate.ToString(), endDate.ToString(), "All", "DailyCollectionSummary")).ToList();
+        GetDayTotal();
+
+        Loading = false;
+        AllowOpen = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    public decimal GetDayTotal()
+    {
+        cashSum = Math.Round(Convert.ToDecimal(Queryable.Sum(summary.Select(x => (x.Cash)).AsQueryable())), 2);
+        ChequeSum = Math.Round(Convert.ToDecimal(Queryable.Sum(summary.Select(x => (x.Cheque)).AsQueryable())), 2);
+        TTSum = Math.Round(Convert.ToDecimal(Queryable.Sum(summary.Select(x => (x.TT)).AsQueryable())), 2);
+        CardSum = Math.Round(Convert.ToDecimal(Queryable.Sum(summary.Select(x => (x.Card)).AsQueryable())), 2);
+        onlineSum = Math.Round(Convert.ToDecimal(Queryable.Sum(summary.Select(x => (x.OnlinePayment)).AsQueryable())), 2);
+        return GrandTotal = Math.Round((cashSum + ChequeSum + TTSum + CardSum + onlineSum), 2);
+
+    }
+
+
+    public async Task ExportExcel()
+    {
+        ExcelExportProperties ExcelProperties = new ExcelExportProperties();
+        ExcelProperties.FileName = "DailyCollectionSummary.xlsx";
+        await this.Grid.ExportToExcelAsync(ExcelProperties);
+
+    }
+
+    public async Task ExportPdf()
+    {
+        PdfExportProperties PdfProperties = new PdfExportProperties();
+        PdfProperties.FileName = "DailyCollectionSummary.pdf";
+        await this.Grid.ExportToPdfAsync(PdfProperties);
+    }
+
+    public void OnInput(InputEventArgs Args)
+    {
+        if (Args.Value != null)
+        {
+            Grid.Search(Args.Value);
+        }
+    }
+    public string emailSubject = string.Empty;
+    public string htmlBody = string.Empty;
+    public List<ExpandoObject> companyDetails = new List<ExpandoObject>();
+    public List<ExpandoObject> emailTemplate = new List<ExpandoObject>();
+    public async Task Email_click()
+    {
+        try
+        {
+            if (summary != null)
+            {
+
+                PopupMail = true;
+                emailSubject = string.Empty;
+                htmlBody = string.Empty;
+                companyDetails = new List<ExpandoObject>();
+                emailTemplate = new List<ExpandoObject>();
+                GetDayTotal();
+                companyDetails = await _ICompanyManager.GetCompanyDetails(BranchID);
+                var dictionary = (IDictionary<string, object>)companyDetails[0];
+                var companyName = dictionary["CompanyName"];
+                await sessionStorage.SetItemAsync("CompanyFullName", companyName);
+                await sessionStorage.SetItemAsync("BranchID", BranchID);
+                emailTemplate = await mailService.GetEmailTemplate("DailyCollectionSummary", BranchID, Con);
+                var emailTemplateDictionary = (IDictionary<string, object>)emailTemplate[0];
+                htmlBody = emailTemplateDictionary["Description"].ToString().Replace("{SDate}", SDate.ToString("dd/MM/yyyy"))
+                                                                            .Replace("{cashSum}", cashSum.ToString())
+                                                                            .Replace("{CardSum}", CardSum.ToString())
+                                                                            .Replace("{ChequeSum}", ChequeSum.ToString())
+                                                                            .Replace("{TTSum}", TTSum.ToString())
+                                                                            .Replace("{onlineSum}", onlineSum.ToString())
+                                                                            .Replace("{GrandTotal}", GrandTotal.ToString());
+
+                emailSubject = emailTemplateDictionary["Value"].ToString().Replace("{CompanyName}", companyName.ToString().ToUpper());
+            }
+            else
+            {
+                ToastContent = "The grid should not be blank.";
+                Toast[1].Content = ToastContent;
+                await this.ToastObj.ShowAsync(Toast[1]);
+                PopupMail = false;
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+    }
+    public async Task SendMail_Click()
+    {
+        var result = await mailService.SendEmailAsync("", emailSubject, htmlBody, summary, companyDetails, SDate.ToString(), EDate.ToString(), Con);
+        if (result != 0)
+        {
+            ToastContent = "Your email has been sent successfully.";
+            Toast[0].Content = ToastContent;
+            await this.ToastObj.ShowAsync(Toast[0]);
+            PopupMail = false;
+        }
+        else
+        {
+            ToastContent = "Something went wrong!";
+            Toast[1].Content = ToastContent;
+            await this.ToastObj.ShowAsync(Toast[1]);
+            PopupMail = false;
+        }
+    }
+
+    public async Task DownLoadSummary()
+    {
+        try
+        {
+            
+            var data = await Grid.GetFilteredRecordsAsync();
+            var dataList = new List<object>();
+
+            if (data is IEnumerable<object> enumerableData)
+            {
+                foreach (var item in enumerableData)
+                {
+                    dataList.Add(item);
+                }
+            }
+            else
+            {
+                dataList.Add(data);
+            }
+            companyDetails = new List<ExpandoObject>();
+            companyDetails = await _ICompanyManager.GetCompanyDetails(BranchID);
+            DataSource dt = new DataSource
+                {
+                    Parameters = new List<JSReportParameter>
+                {
+                    new JSReportParameter()
+                    {
+                        Name = "DateFrom",
+                        Values = new List<string>(){ SDate.ToString() }
+                    },
+                    new JSReportParameter()
+                    {
+                        Name = "DateTo",
+                        Values = new List<string>(){ EDate.ToString() }
+                    }
+                }
+                };
+            dt.DataSet1 = new List<ExpandoObject>();
+            dt.DataSet2 = new List<ExpandoObject>();
+            dt.ReportName = "DashBoard";
+            dt.DataSet1 = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(dataList));
+            dt.Company = JsonConvert.DeserializeObject<List<ExpandoObject>>(JsonConvert.SerializeObject(companyDetails));
+            if (dt.ReportName != "")
+            {
+                var Result = await _BoldReport.GetReport(dt);
+                var filename = "Collection Summary" + ".pdf";
+                await jsRuntime.InvokeVoidAsync("directprint", filename, Convert.ToBase64String(Result.ToArray()));
+            }                   
+        }
+        catch (Exception e)
+        {
+
+            throw e;
+        }
+    }
+    private async Task GetLoginInfo()
+    {
+        try
+        {
+            string param = await Http.GetStringAsync("API/Encryption/Decrypt?Text=" + HttpUtility.UrlEncode(await sessionStorage.GetItemAsync<string>("token")));
+            if (!string.IsNullOrEmpty(param))
+                info = JsonConvert.DeserializeObject<DtoLoginModel>(param)!;
+        }
+        catch (Exception ex)
+        {
+            this.ToastService.ShowToast(new ToastOption()
+                {
+                    Title = "Something went wrong...",
+                    Content = ex.Message,
+                    CssClass = "e-toast-danger",
+                    Icon = "e-error toast-icons",
+                    Timeout = 2000,
+                    X = "Right",
+                    Y = "Top",
+                    CloseButton = true
+                });
+            Console.WriteLine(ex);
+            await jsRuntime.InvokeVoidAsync("window.history.back");
+        }
+    }
+}
+
